@@ -8,14 +8,13 @@ CREATE TABLE Categories
 
 CREATE TABLE Events
 (
-	id_event SERIAL PRIMARY KEY,
+	href varchar(240) NOT NULL UNIQUE PRIMARY KEY,
 
-	title varchar(120) NOT NULL,
+	title varchar(240) NOT NULL,
 	description text NOT NULL,
-	href varchar(240) NOT NULL,
 	local varchar(120) NOT NULL,
 	date DATE NOT NULL,
-	time TIME NOT NULL,
+	time varchar(10) NOT NULL,
 	folder varchar(240) NOT NULL,
 
     id_category INT REFERENCES Categories(id_category),
@@ -26,7 +25,7 @@ CREATE TABLE Prices
 (
     id_price SERIAL PRIMARY KEY,
 
-    id_event INT REFERENCES Events(id_event),
+    id_event varchar(240) REFERENCES Events(href),
 
     description varchar(60) NOT NULL,
     value MONEY NOT NULL
@@ -36,7 +35,8 @@ CREATE TABLE Prices
 CREATE TABLE Users
 (
     id_user SERIAL PRIMARY KEY,
-    email varchar(60) NOT NULL UNIQUE
+    email varchar(60) NOT NULL UNIQUE,
+    tel varchar(11) NOT NULL
 );
 
 CREATE TABLE User_Category
