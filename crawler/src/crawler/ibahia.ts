@@ -1,6 +1,6 @@
 import { launch } from "puppeteer";
-import { IData, Vendor } from "./app";
-import { range, getMonth } from "./utils";
+import { IData, Vendor } from "../utils/types";
+import { range, getMonth } from "../utils/helpers";
 
 async function app() {
   const browser = await launch();
