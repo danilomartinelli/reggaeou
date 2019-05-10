@@ -38,9 +38,7 @@ async function app() {
         return document.querySelector(sel).innerText.trim();
       }, `#tab1 > ul > li:nth-child(${nth}) > h1 > span.texto-preto-10`);
 
-      const month = getMonth(new Date().getMonth());
-
-      const day = new Date().getDate().toString();
+      const date = new Date();
 
       const folder: string = await page.evaluate(sel => {
         return `http://www2.ibahia.com/${document
@@ -49,7 +47,22 @@ async function app() {
       }, `#tab1 > ul > li:nth-child(${nth}) > a > img`);
 
       const vendor = Vendor.IBAHIA;
-      data.push({ href, title, time, local, month, day, folder, vendor });
+
+      const description = "";
+
+      const categoryId = 1;
+
+      data.push({
+        href,
+        title,
+        description,
+        time,
+        local,
+        date,
+        folder,
+        vendor,
+        categoryId
+      });
     })
   );
 

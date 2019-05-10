@@ -6,10 +6,11 @@ export enum Vendor {
 export interface IData {
   href: string;
   title: string;
+  description: string;
   time: string;
   local: string;
-  month: string;
-  day: string;
+  date: Date;
   folder: string;
   vendor: Vendor;
+  categoryId: number;
 }

@@ -6,10 +6,9 @@ async function app() {
   const browser = await launch();
   const page = await browser.newPage();
 
-  await page.goto(
-    "https://www.sympla.com.br/eventos/salvador-ba/show-musica-festa",
-    { waitUntil: "networkidle2" }
-  );
+  await page.goto("https://www.sympla.com.br/eventos/tecnologia", {
+    waitUntil: "networkidle2"
+  });
 
   const childElementCount: number = await page.evaluate(sel => {
     return document.querySelector(sel).childElementCount;
@@ -53,6 +52,8 @@ async function app() {
         return document.querySelector(sel).innerText.trim();
       }, `#events-grid > div:nth-child(${nth}) > a > div.calendar-box > div.calendar-day`);
 
+      const date = new Date();
+
       const folder: string = await page.evaluate(sel => {
         return document
           .querySelector(sel)
@@ -62,7 +63,22 @@ async function app() {
       }, `#events-grid > div:nth-child(${nth}) > a > div.event-image-box`);
 
       const vendor = Vendor.SYMPLA;
-      data.push({ href, title, time, local, month, day, folder, vendor });
+
+      const description = "";
+
+      const categoryId = 2;
+
+      data.push({
+        href,
+        title,
+        description,
+        time,
+        local,
+        date,
+        folder,
+        vendor,
+        categoryId
+      });
     })
   );
 
