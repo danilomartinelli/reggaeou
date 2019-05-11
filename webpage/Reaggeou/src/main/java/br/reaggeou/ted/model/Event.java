@@ -10,10 +10,10 @@ public class Event {
 	private String description;
 	private String href;
 	private String local;
-	private LocalDate data;
+	private LocalDate date;
 	private LocalTime time;
 	private String folder;
-	private Integer id_category;
+	private Category category;
 
 	private event_info_vendor vendor;
 
@@ -57,12 +57,12 @@ public class Event {
 		this.local = local;
 	}
 
-	public LocalDate getData() {
-		return data;
+	public LocalDate getDate() {
+		return date;
 	}
 
-	public void setData(LocalDate data) {
-		this.data = data;
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
 	public LocalTime getTime() {
@@ -81,12 +81,12 @@ public class Event {
 		this.folder = folder;
 	}
 
-	public Integer getId_category() {
-		return id_category;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setId_category(Integer id_category) {
-		this.id_category = id_category;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
 	public event_info_vendor getVendor() {
