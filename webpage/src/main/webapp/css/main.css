@@ -249,6 +249,11 @@
     padding: 10px;
 }
 
+.register a {
+	text-decoration: none;
+	color: white
+}
+
 .register_btn {
    display: flex; 
    align-items: center;
@@ -257,7 +262,7 @@
 }
 
 .register button{
-    margin-top: 1vmax;
+    margin-top: 1.3vmax;
     background-color: #fbc531;
     color: #ffffff;
     border-radius: 7px;

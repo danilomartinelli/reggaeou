@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.reaggeou.ted.business.UserBO;
-import br.reaggeou.ted.exception.EmptyUser;
-import br.reaggeou.ted.exception.EmptyUserEmail;
-import br.reaggeou.ted.exception.EmptyUserTel;
-import br.reaggeou.ted.exception.UserAlreadyExists;
+import br.reaggeou.ted.exception.EmptyUserException;
+import br.reaggeou.ted.exception.EmptyUserEmailException;
+import br.reaggeou.ted.exception.EmptyUserTelException;
+import br.reaggeou.ted.exception.UserAlreadyExistsException;
 import br.reaggeou.ted.model.Category;
 import br.reaggeou.ted.model.User;
 
@@ -69,16 +69,16 @@ public class RegisterController extends HttpServlet {
 		try {
 			userBO.insertUser(user, ctg);
 			response.sendRedirect("admin/successfully_registered.jsp");
-		} catch (EmptyUser e) {
+		} catch (EmptyUserException e) {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("index.jsp").forward(request, response);
-		} catch (EmptyUserEmail e) {
+		} catch (EmptyUserEmailException e) {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("index.jsp").forward(request, response);
-		} catch (EmptyUserTel e) {
+		} catch (EmptyUserTelException e) {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("index.jsp").forward(request, response);
-		} catch (UserAlreadyExists e) {
+		} catch (UserAlreadyExistsException e) {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}

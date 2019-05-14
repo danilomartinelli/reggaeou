@@ -8,6 +8,7 @@ import java.util.List;
 
 import br.reaggeou.ted.model.Category;
 import br.reaggeou.ted.model.Event;
+import br.reaggeou.ted.model.Event_info_vendor;
 import br.reaggeou.ted.util.ConnectionWithBank;
 
 public class EventDAO {
@@ -20,36 +21,56 @@ public class EventDAO {
 		this.connectionWB = ConnectionWithBank.getConnectionWB();
 	}
 
+	public List<Event> filterEventsCategory(Category category) {
+
+		List<Event> eventsFilter = new ArrayList<>();
+
+		for (Event event : listEvents()) {
+
+			if (event.getCategory().getName().equals(category.getName())) {
+				eventsFilter.add(event);
+			}
+
+		}
+
+		return eventsFilter;
+
+	}
+
 	public List<Event> listEvents() {
 		List<Event> events = new ArrayList<Event>();
 
 		try {
 			PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_SELECT_EVENTS);
 			ResultSet rs = ps.executeQuery();
-			
-			while (rs.next()) {
-				Event event = new Event();
-				event.setId_event(rs.getInt("id_event"));
-				event.setTitle(rs.getString("title"));
-				event.setDescription(rs.getString("description"));
-				event.setHref(rs.getString("href"));
-				event.setLocal(rs.getString("local"));
-				event.setDate(rs.getDate("date").toLocalDate());
-				event.setTime(rs.getTime("time").toLocalTime());
-//				event.setVendor(Enum);
-				
-				Category category = new Category();
-				category.setId_category(rs.getInt("id_category"));
-				event.setCategory(category);
-				
-				events.add(event);
-			}
-			
+
+			listEvents(events, rs);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		return events;
+	}
+
+	private void listEvents(List<Event> events, ResultSet rs) throws SQLException {
+		while (rs.next()) {
+			Event event = new Event();
+			event.setIdEvent(rs.getInt("id_event"));
+			event.setTitle(rs.getString("title"));
+			event.setDescription(rs.getString("description"));
+			event.setHref(rs.getString("href"));
+			event.setLocal(rs.getString("local"));
+			event.setDate(rs.getDate("date").toLocalDate());
+			event.setTime(rs.getTime("time").toLocalTime());
+			event.setVendor(Event_info_vendor.valueOf(rs.getString("event_info_vendor")));
+
+			Category category = new Category();
+			category.setIdCategory(rs.getInt("id_category"));
+			event.setCategory(category);
+
+			events.add(event);
+		}
 	}
 
 }

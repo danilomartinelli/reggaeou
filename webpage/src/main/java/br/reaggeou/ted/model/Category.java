@@ -2,15 +2,15 @@ package br.reaggeou.ted.model;
 
 public class Category {
 
-	private Integer id_category;
+	private Integer idCategory;
 	private String name;
 
-	public Integer getId_category() {
-		return id_category;
+	public Integer getIdCategory() {
+		return idCategory;
 	}
 
-	public void setId_category(Integer id_category) {
-		this.id_category = id_category;
+	public void setIdCategory(Integer idCategory) {
+		this.idCategory = idCategory;
 	}
 
 	public String getName() {

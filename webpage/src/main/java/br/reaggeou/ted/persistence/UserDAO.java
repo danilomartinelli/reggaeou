@@ -22,7 +22,8 @@ public class UserDAO {
 	private static final String SQL_SELECT_ID_CATEGORY = "SELECT id_category FROM CATEGORIES WHERE name=?";
 	private static final String SQL_SELECT_USERS = "SELECT id_user, email, tel FROM USERS";
 	private static final String SQL_SELECT_CATEGORY = "SELECT id_category, name FROM CATEGORIES";
-
+	private static final String SQL_REMOVE_USER = "DELETE FROM USERS WHERE email=?";
+	
 	public UserDAO() {
 		this.connectionWB = ConnectionWithBank.getConnectionWB();
 	}
@@ -34,7 +35,7 @@ public class UserDAO {
 			ps.setString(2, user.getTel());
 			ps.execute();
 
-			insertTableUserCategory(getByEmail(user), getByName(category));
+			insertTableUserCategory(userGetIdByEmail(user), categoryGetIdByName(category));
 
 			ps.close();
 		} catch (SQLException e) {
@@ -42,6 +43,17 @@ public class UserDAO {
 		}
 	}
 
+	public void removeUser(User user) {
+		try {
+			PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_REMOVE_USER);
+			ps.setString(1, user.getEmail());
+			ps.execute();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public List<User> listUser() {
 
 		List<User> users = new ArrayList<User>();
@@ -52,7 +64,7 @@ public class UserDAO {
 
 			while (rs.next()) {
 				User user = new User();
-				user.setId_user(rs.getInt("id_user"));
+				user.setIdUser(rs.getInt("id_user"));
 				user.setEmail(rs.getString("email"));
 				user.setTel(rs.getString("tel"));
 
@@ -96,7 +108,7 @@ public class UserDAO {
 		return mapCategory;
 	}
 
-	private User getByEmail(User user) throws SQLException {
+	private User userGetIdByEmail(User user) throws SQLException {
 		User userCheck = null;
 		PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_SELECT_ID_USER);
 		ps.setString(1, user.getEmail());
@@ -104,7 +116,7 @@ public class UserDAO {
 
 		if (rs.next()) {
 			userCheck = new User();
-			userCheck.setId_user(rs.getInt("id_user"));
+			userCheck.setIdUser(rs.getInt("id_user"));
 //			userCheck.setEmail(rs.getString("email"));
 //			userCheck.setTel(rs.getString("tel"));
 		}
@@ -114,7 +126,7 @@ public class UserDAO {
 		return userCheck;
 	}
 
-	private Category getByName(Category category) throws SQLException {
+	private Category categoryGetIdByName(Category category) throws SQLException {
 		Category categoryCheck = null;
 		PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_SELECT_ID_CATEGORY);
 		ps.setString(1, category.getName());
@@ -122,7 +134,7 @@ public class UserDAO {
 
 		if (rs.next()) {
 			categoryCheck = new Category();
-			categoryCheck.setId_category(rs.getInt("id_category"));
+			categoryCheck.setIdCategory(rs.getInt("id_category"));
 //			categoryCheck.setName(rs.getString("name"));
 		}
 
@@ -133,8 +145,8 @@ public class UserDAO {
 
 	private void insertTableUserCategory(User user, Category category) throws SQLException {
 		PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_INSERT_USERCATEGORY);
-		ps.setInt(1, user.getId_user());
-		ps.setInt(2, category.getId_category());
+		ps.setInt(1, user.getIdUser());
+		ps.setInt(2, category.getIdCategory());
 		ps.execute();
 	}
 

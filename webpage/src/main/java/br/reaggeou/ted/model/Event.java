@@ -5,7 +5,7 @@ import java.time.LocalTime;
 
 public class Event {
 
-	private Integer id_event;
+	private Integer idEvent;
 	private String title;
 	private String description;
 	private String href;
@@ -17,12 +17,12 @@ public class Event {
 
 	private Event_info_vendor vendor;
 
-	public Integer getId_event() {
-		return id_event;
+	public Integer getIdEvent() {
+		return idEvent;
 	}
 
-	public void setId_event(Integer id_event) {
-		this.id_event = id_event;
+	public void setIdEvent(Integer idEvent) {
+		this.idEvent = idEvent;
 	}
 
 	public String getTitle() {

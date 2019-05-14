@@ -116,6 +116,7 @@
 								<p class="message_error">
 									<c:out value="${error}" />
 								</p>
+								<a href="./cancellation">Deseja cancelar o serviço ?</a>
 							</div>
 							<button type="submit" name="register">Cadastrar</button>
 						</div>

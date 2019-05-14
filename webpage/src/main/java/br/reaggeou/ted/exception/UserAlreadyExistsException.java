@@ -1,10 +1,10 @@
 package br.reaggeou.ted.exception;
 
-public class UserAlreadyExists extends Exception{
+public class UserAlreadyExistsException extends Exception{
 
 	private static final long serialVersionUID = -1513368330526159985L;
 	
-	public UserAlreadyExists(String message) {
+	public UserAlreadyExistsException(String message) {
 		super(message);
 	}
 	

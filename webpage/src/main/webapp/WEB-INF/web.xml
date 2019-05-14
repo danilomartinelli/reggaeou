@@ -28,4 +28,14 @@
     <filter-name>PermissionFilter</filter-name>
     <url-pattern>/PermissionFilter</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CancellationController</display-name>
+    <servlet-name>CancellationController</servlet-name>
+    <servlet-class>br.reaggeou.ted.controller.CancellationController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CancellationController</servlet-name>
+    <url-pattern>/CancellationController</url-pattern>
+  </servlet-mapping>
 </web-app>
