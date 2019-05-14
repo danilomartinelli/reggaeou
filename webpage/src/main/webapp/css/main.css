@@ -1,0 +1,410 @@
+/*======================== RESETS ========================*/ 
+* {
+    font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-weight: 300;
+    font-size: 100%;
+    outline: none;
+    border: none;
+}
+
+/*======================== CONTAINER MAIN ========================*/
+
+.container {
+    text-align: center;
+    /* padding: 3% 4%; */
+    width: 100wh;
+    height: 100vh;
+}
+
+/*======================== HEADER ========================*/
+
+.container_header {
+    width: 100%;
+    height: 10%; 
+}
+
+.container_logo {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}   
+
+.logo {
+    width: 130px;
+    background: url(../img/logo.png) center center/120px no-repeat;
+    font-size: 0;
+    padding: 31px;
+}
+
+/*======================== DESCRIPTION ========================*/
+
+.container_description {
+    width: 100%;
+    height: 60%;
+    background:#5573FF;
+    padding: 10px 5vmax;
+    display: flex;
+    justify-content: space-between;
+}
+
+.description {
+    text-align: left;
+    width: 50%;
+    margin-top: 5vmax;
+}
+
+.image {
+    flex: 1;
+}
+
+.description h2 {
+    font-size: 4.2vmax;
+    font-weight: 700;
+    color: #fbc531;
+    margin-left: 5px;
+}
+
+.description p{
+    color: white;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 10px; 
+    font-size: 2.7vmax;
+}
+
+.container_description_sucess {
+    width: 100%;
+    height: 80%;
+    background:#5573FF;
+    padding: 10px 5vmax;
+    display: flex;
+    justify-content: space-between;
+}
+
+.description_sucess {
+    text-align: center;
+    width: 100%;
+    margin-top: 3vmax;    
+}
+
+.description_sucess h2 {
+    font-size: 4.2vmax;
+    font-weight: 700;
+    color: #fbc531;
+    margin-left: 5px;
+}
+
+.description_sucess p{
+    color: white;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 10px; 
+    font-size: 2.7vmax;
+}
+
+/**======================== CATEGORY ========================*/
+
+.container_category {
+    width: 100%;
+    height: 70%;
+    min-height: 30vmax;
+}
+
+.container_category h2{
+    font-size: 4vmax;
+    font-weight: 700;
+    color: #fbc531;
+}
+
+.container_category p {
+    font-size: 2.5vmax;
+}
+
+.description_category {
+    margin-top: 2.5vmax;
+    width: 100%;
+    height: 30%;
+    padding-bottom: 1vmax;
+}
+
+.categories {
+    width: 100%;
+    height: 60%;
+    margin-top: 2vmax;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.categories i {
+    font-size: 4.5vmax;
+}
+
+.category {
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10vmax;
+    height: 10vmax;
+    color: #151D40;
+    -moz-border-radius: 10vmax; 
+    -webkit-border-radius: 10vmax; 
+    border-radius: 10vmax;
+    border: solid 0.4vmax #151D40;
+}
+
+.categories input[type=checkbox] {
+    display: none;
+}
+
+.categories input[type=checkbox] + label{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vmax;
+    width: 10vmax;
+    -moz-border-radius: 10vmax; 
+    -webkit-border-radius: 10vmax; 
+    border-radius: 10vmax; 
+}
+
+.categories input#ctg1:checked + label {
+    background: #151D40;
+}
+
+.categories input#ctg1:checked + label i{
+    color: white;
+}
+
+.categories input#ctg2:checked + label{
+    background: #151D40;
+}
+
+.categories input#ctg2:checked + label i{
+    color: white;
+}
+
+.categories input#ctg3:checked + label{
+    background: #151D40;
+}
+
+.categories input#ctg3:checked + label i{
+    color: white;
+}
+
+.categories input#ctg4:checked + label{
+    background: #151D40;
+}
+
+.categories input#ctg4:checked + label i{
+    color: white;
+}
+
+.categories input#ctg5:checked + label{
+    background: #151D40;
+}
+
+.categories input#ctg5:checked + label i{
+    color: white;
+}
+
+.categoryBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    text-align: center;
+    justify-content: center;   
+    color: #151D40;
+}
+
+.categoryBox p {
+    font-size: 2vmax;
+    width: 9.3vmax;
+}
+
+/*======================== REGISTER ========================*/
+
+.container_register form {
+    width: 100%;
+    height: 100%;
+}
+
+.register {
+    display: flex;
+    text-align: left;
+    align-items: center;
+    width: 100%;
+    height: 30%;
+    background: #5573FF;
+    box-sizing: border-box;
+    justify-content: center;
+    padding: 10px;
+}
+
+.register_btn {
+   display: flex; 
+   align-items: center;
+   height: 100%;
+   width: 25%;
+}
+
+.register button{
+    margin-top: 1vmax;
+    background-color: #fbc531;
+    color: #ffffff;
+    border-radius: 7px;
+    width: 75.25px;
+    height: 40px;
+    font-size: 13px;
+    cursor: pointer;
+    border: none;
+}
+
+.register button:hover {
+    background-color: #FFC312;
+}
+
+.register_input {
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 2.5vmax;
+}
+
+.register_input input {
+    height: 36px;
+    padding-left: 10px;
+    width: 250px;
+    font-size: 2vmax;
+    border-radius: 10px;
+}
+
+.register_description {
+    width: 100%;
+    text-align: center;
+}
+
+.register_description h2 {
+    font-size: 4vmax;
+    font-weight: 700;
+    color: #fbc531;
+    margin-bottom: 5px;
+}
+
+.message_error {
+    text-align: center;
+    color: #ffffff;
+}
+
+/* */
+
+@media screen and (max-width: 768px) {
+    
+    .container_description{
+        flex-direction: column;
+    }
+
+    .description {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 460px) {
+
+    .logo {
+        width: 160px;
+        height: 50px;
+        background: url(../img/logo.png) center center/150px no-repeat;
+    }
+
+    .description p{
+        font-size: 2.3vmax;
+    }
+    
+    .container_category p {
+        font-size: 2.3vmax;
+    }
+
+    .register_input {
+        margin-bottom: 10px;
+        margin-right: 30px;
+    }
+
+    .register_input input {
+        height: 50px;
+        width: 400px;
+    }
+
+    .register button{
+        width: 180px;
+        height: 45px;
+    }
+
+    .description_sucess {
+        padding: 5px 10vmax;
+    }
+
+}
+
+@media screen and (min-width: 1000px) {
+    
+    .description h2 {
+        font-size: 4vmax;
+    }
+    
+    .description p{
+        font-size: 1.8vmax;
+    }
+
+    .container_category h2{
+        font-size: 3vmax;
+    }
+
+    .container_category p {
+        font-size: 1.8vmax;
+    }
+
+    .box {
+        display: flex;
+        flex-direction: column;
+        height: 200px;
+        justify-content: center;
+    }
+    
+    .box2 {
+        display: flex;
+    }
+
+    .register_input {
+        font-size: 1.5vmax;
+    }
+
+    .register_input input {
+        font-size: 1.5vmax;
+    }
+
+    .logo {
+        width: 180px;
+        height: 60px;
+        background: url(../img/logo.png) center center/170px no-repeat;
+    }
+
+}
+
+@media screen and (min-width: 1200px) {
+    .description h2 {
+        font-size: 3vmax;
+    }
+
+    .categories {
+        margin-top: 4vmax;
+    }
+
+}
