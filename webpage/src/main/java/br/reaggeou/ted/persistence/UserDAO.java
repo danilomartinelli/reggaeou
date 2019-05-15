@@ -28,21 +28,20 @@ public class UserDAO {
 		this.connectionWB = ConnectionWithBank.getConnectionWB();
 	}
 
-	public void insertUser(User user, Category category) {
+	public void insertUser(User user) {
 		try {
 			PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_INSERT_USER);
 			ps.setString(1, user.getEmail());
 			ps.setString(2, user.getTel());
 			ps.execute();
 
-			insertTableUserCategory(userGetIdByEmail(user), categoryGetIdByName(category));
 
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void removeUser(User user) {
 		try {
 			PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_REMOVE_USER);
@@ -143,10 +142,11 @@ public class UserDAO {
 		return categoryCheck;
 	}
 
-	private void insertTableUserCategory(User user, Category category) throws SQLException {
+	public void insertTableUserCategory(User user, Category category) throws SQLException {
 		PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_INSERT_USERCATEGORY);
 		ps.setInt(1, user.getIdUser());
-		ps.setInt(2, category.getIdCategory());
+		Category ctg = categoryGetIdByName(category);
+		ps.setInt(2, ctg.getIdCategory());
 		ps.execute();
 	}
 

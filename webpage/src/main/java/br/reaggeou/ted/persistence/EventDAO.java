@@ -4,11 +4,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.reaggeou.ted.model.Category;
 import br.reaggeou.ted.model.Event;
 import br.reaggeou.ted.model.Event_info_vendor;
+import br.reaggeou.ted.model.User;
 import br.reaggeou.ted.util.ConnectionWithBank;
 
 public class EventDAO {
@@ -36,7 +39,7 @@ public class EventDAO {
 		return eventsFilter;
 
 	}
-
+	
 	public List<Event> listEvents() {
 		List<Event> events = new ArrayList<Event>();
 

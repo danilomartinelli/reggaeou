@@ -1,5 +1,6 @@
 package br.reaggeou.ted.business;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import br.reaggeou.ted.exception.EmptyUserException;
@@ -19,11 +20,15 @@ public class UserBO {
 	private static final String EMPTY_USER_EMAIL = "O campo email está vazio";
 	private static final String EMPTY_USER_TEL = "O campo telefone está vazio";
 
-	public void insertUser(User user, Category category)
+	public void insertUser(User user)
 			throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException, UserAlreadyExistsException {
 		emptyUser(user);
 		validate(user);
-		userDAO.insertUser(user, category);
+		userDAO.insertUser(user);
+	}
+	
+	public void inserTableUserCategory(User user, Category category) throws SQLException {
+		userDAO.insertTableUserCategory(user, category);
 	}
 
 	public void removeUser(User user)

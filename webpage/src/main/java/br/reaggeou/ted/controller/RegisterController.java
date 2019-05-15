@@ -1,6 +1,7 @@
 package br.reaggeou.ted.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -46,29 +47,40 @@ public class RegisterController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String category = request.getParameter("category");
+		String[] categories = request.getParameterValues("category");
 		String email = request.getParameter("email");
 		String tel = request.getParameter("tel");
-
-		Category ctg = new Category();
-		ctg.setName(category);
 
 		User user = new User();
 		user.setEmail(email);
 		user.setTel(tel);
-
+		
 		request.getSession().setAttribute("user", user);
+		registerUser(request, response, user);
+		
+		
+		for(String category : categories) {
+			Category ctg = new Category();
+			ctg.setName(category);
+			try {
+				registerUserCategory(request, response, user, ctg);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
-		registerUser(request, response, ctg, user);
+
+		response.sendRedirect("admin/successfully_registered.jsp");
 
 	}
 
-	private void registerUser(HttpServletRequest request, HttpServletResponse response, Category ctg, User user)
+	private void registerUser(HttpServletRequest request, HttpServletResponse response, User user)
 			throws IOException, ServletException {
 
 		try {
-			userBO.insertUser(user, ctg);
-			response.sendRedirect("admin/successfully_registered.jsp");
+			userBO.insertUser(user);
+			// response.sendRedirect("admin/successfully_registered.jsp");
 		} catch (EmptyUserException e) {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -84,5 +96,14 @@ public class RegisterController extends HttpServlet {
 		}
 
 	}
+	
+	private void registerUserCategory(HttpServletRequest request, HttpServletResponse response, User user, Category ctg)
+			throws IOException, ServletException, SQLException {
+
+			userBO.inserTableUserCategory(user, ctg);
+			// response.sendRedirect("admin/successfully_registered.jsp");
+
+	}
+
 
 }

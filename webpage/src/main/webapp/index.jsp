@@ -60,7 +60,7 @@
 						<div class="categories">
 							<div class="categoryBox">
 								<div class="category">
-									<input type="checkbox" name="category" id="ctg1"> <label
+									<input type="checkbox" name="category" id="ctg1" value="1"> <label
 										for="ctg1"><i class="fas fa-graduation-cap"></i></label>
 								</div>
 								<p>Curso e Workshop</p>
@@ -68,7 +68,7 @@
 							</div>
 							<div class="categoryBox">
 								<div class="category">
-									<input type="checkbox" name="category" id="ctg2"> <label
+									<input type="checkbox" name="category" id="ctg2" value="2"> <label
 										for="ctg2"><i class="fas fa-palette"></i></label>
 								</div>
 								<p>Arte e Cultura</p>
@@ -76,7 +76,7 @@
 							</div>
 							<div class="categoryBox">
 								<div class="category">
-									<input type="checkbox" name="category" id="ctg3"> <label
+									<input type="checkbox" name="category" id="ctg3" value="3"> <label
 										for="ctg3"><i class="fas fa-guitar"></i></label>
 								</div>
 								<p>Festa e Show</p>
@@ -84,7 +84,7 @@
 							</div>
 							<div class="categoryBox">
 								<div class="category">
-									<input type="checkbox" name="category" id="ctg4"> <label
+									<input type="checkbox" name="category" id="ctg4" value="4"> <label
 										for="ctg4"><i class="fas fa-biohazard"></i></label>
 								</div>
 								<p>Ciência e Tecnologia</p>
@@ -92,7 +92,7 @@
 							</div>
 							<div class="categoryBox">
 								<div class="category">
-									<input type="checkbox" name="category" id="ctg5"> <label
+									<input type="checkbox" name="category" id="ctg5" value="5"> <label
 										for="ctg5"><i class="fas fa-running"></i></label>
 								</div>
 								<p>Esporte</p>
