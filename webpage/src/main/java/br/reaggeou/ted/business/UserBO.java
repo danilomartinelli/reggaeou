@@ -15,10 +15,10 @@ import br.reaggeou.ted.persistence.UserDAO;
 public class UserBO {
 
 	private UserDAO userDAO = new UserDAO();
-	private static final String MESSAGE_ERROR_USER_EXIST = "Este usuário já está cadastrado";
-	private static final String EMPTY_USER = "Os campos estão vazio";
-	private static final String EMPTY_USER_EMAIL = "O campo email está vazio";
-	private static final String EMPTY_USER_TEL = "O campo telefone está vazio";
+	private static final String MESSAGE_ERROR_USER_EXIST = "Este usuï¿½rio jï¿½ estï¿½ cadastrado";
+	private static final String EMPTY_USER = "Os campos estï¿½o vazio";
+	private static final String EMPTY_USER_EMAIL = "O campo email estï¿½ vazio";
+	private static final String EMPTY_USER_TEL = "O campo telefone estï¿½ vazio";
 
 	public void insertUser(User user)
 			throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException, UserAlreadyExistsException {
@@ -27,8 +27,8 @@ public class UserBO {
 		userDAO.insertUser(user);
 	}
 	
-	public void inserTableUserCategory(User user, Category category) throws SQLException {
-		userDAO.insertTableUserCategory(user, category);
+	public void inserTableUserCategory(User user, String categoryID) throws SQLException {
+		userDAO.insertTableUserCategory(user, categoryID);
 	}
 
 	public void removeUser(User user)
@@ -71,7 +71,7 @@ public class UserBO {
 
 	private void nonExistentUser(User user) throws NonExistentUserException {
 		if (!userDAO.validate(user)) {
-			throw new NonExistentUserException("Usuário não cadastrado");
+			throw new NonExistentUserException("Usuï¿½rio nï¿½o cadastrado");
 		}
 	}
 

@@ -26,7 +26,7 @@ public class RegisterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-// Possível solução
+// Possï¿½vel soluï¿½ï¿½o
 
 		Integer[] categories = new Integer[5];
 		Integer counter = 0;
@@ -54,12 +54,9 @@ public class RegisterController extends HttpServlet {
 		request.getSession().setAttribute("user", user);
 		registerUser(request, response, user);
 		
-		for(String category : categories) {
-			Category ctg = new Category();
-			ctg.setName(category);
-			
+		for(String categoryID : categories) {
 			try {
-				userBO.inserTableUserCategory(user, ctg);
+				userBO.inserTableUserCategory(user, categoryID);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

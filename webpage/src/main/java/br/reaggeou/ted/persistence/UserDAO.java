@@ -19,7 +19,7 @@ public class UserDAO {
 	private static final String SQL_INSERT_USER = "INSERT INTO USERS (email, tel) values (?, ?);";
 	private static final String SQL_INSERT_USERCATEGORY = "INSERT INTO USER_CATEGORY (id_user, id_category) values (?, ?)";
 	private static final String SQL_SELECT_ID_USER = "SELECT id_user FROM USERS WHERE email=?";
-	private static final String SQL_SELECT_ID_CATEGORY = "SELECT id_category FROM CATEGORIES WHERE name=?";
+	private static final String SQL_SELECT_NAME_CATEGORY = "SELECT name FROM CATEGORIES WHERE id_category=?";
 	private static final String SQL_SELECT_USERS = "SELECT id_user, email, tel FROM USERS";
 	private static final String SQL_SELECT_CATEGORY = "SELECT id_category, name FROM CATEGORIES";
 	private static final String SQL_SELECT_CATEGORYID = "SELECT id_category FROM CATEGORIES";
@@ -43,12 +43,11 @@ public class UserDAO {
 		}
 	}
 
-	public void insertTableUserCategory(User u, Category c) throws SQLException {
+	public void insertTableUserCategory(User u, String categoryID) throws SQLException {
 		PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_INSERT_USERCATEGORY);
 		User user = userGetIdByEmail(u);
 		ps.setInt(1, user.getIdUser());
-		Category category = categoryGetIdByName(c);
-		ps.setInt(2, category.getIdCategory());
+		ps.setInt(2, Integer.parseInt(categoryID));
 		ps.execute();
 	}
 
@@ -165,21 +164,20 @@ public class UserDAO {
 		return userCheck;
 	}
 
-	private Category categoryGetIdByName(Category category) throws SQLException {
-		Category categoryCheck = null;
-		PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_SELECT_ID_CATEGORY);
-		ps.setString(1, category.getName());
+	public Category getCategoryByID(String id) throws SQLException {
+		Category category = new Category();
+		PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_SELECT_NAME_CATEGORY);
+		ps.setString(1, id);
 		ResultSet rs = ps.executeQuery();
 
 		if (rs.next()) {
-			categoryCheck = new Category();
-			categoryCheck.setIdCategory(rs.getInt("id_category"));
-			// categoryCheck.setName(rs.getString("name"));
+			category.setIdCategory(Integer.parseInt(id));
+			category.setName(rs.getString("name"));
 		}
 
 		ps.close();
 
-		return categoryCheck;
+		return category;
 	}
 
 }
