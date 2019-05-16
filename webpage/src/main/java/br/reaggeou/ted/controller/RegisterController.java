@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.reaggeou.ted.business.UserBO;
 import br.reaggeou.ted.exception.EmptyUserException;
+import br.reaggeou.ted.exception.EmptyCategoriesException;
 import br.reaggeou.ted.exception.EmptyUserEmailException;
 import br.reaggeou.ted.exception.EmptyUserTelException;
 import br.reaggeou.ted.exception.UserAlreadyExistsException;
@@ -26,8 +27,6 @@ public class RegisterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-// Poss�vel solu��o
-
 		Integer[] categories = new Integer[5];
 		Integer counter = 0;
 		
@@ -56,9 +55,12 @@ public class RegisterController extends HttpServlet {
 		
 		for(String categoryID : categories) {
 			try {
-				userBO.inserTableUserCategory(user, categoryID);
-			} catch (SQLException e) {
-				e.printStackTrace();
+				Category category = new Category();
+				category.setIdCategory(Integer.parseInt(categoryID));	
+				userBO.inserTableUserCategory(user, category, categories);
+			} catch (EmptyCategoriesException e) {
+				request.setAttribute("error", e.getMessage());
+				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
 		}
 		response.sendRedirect("admin/successfully_registered.jsp");

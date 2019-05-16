@@ -99,6 +99,11 @@
 								<!--<c:out value="${categories[4]}" />-->
 							</div>
 						</div>
+						<div style="color: #151D40">
+							<p class="message_error">
+								<c:out value="${error}" />
+							</p>
+						</div>
 					</div>
 					<div class="register">
 						<div class="box">

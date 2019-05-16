@@ -1,10 +1,10 @@
 package br.reaggeou.ted.business;
 
-import java.sql.SQLException;
 import java.util.Map;
 
-import br.reaggeou.ted.exception.EmptyUserException;
+import br.reaggeou.ted.exception.EmptyCategoriesException;
 import br.reaggeou.ted.exception.EmptyUserEmailException;
+import br.reaggeou.ted.exception.EmptyUserException;
 import br.reaggeou.ted.exception.EmptyUserTelException;
 import br.reaggeou.ted.exception.NonExistentUserException;
 import br.reaggeou.ted.exception.UserAlreadyExistsException;
@@ -19,7 +19,7 @@ public class UserBO {
 	private static final String EMPTY_USER = "Os campos est�o vazio";
 	private static final String EMPTY_USER_EMAIL = "O campo email est� vazio";
 	private static final String EMPTY_USER_TEL = "O campo telefone est� vazio";
-
+	private static final String EMPTY_CATEGORIES = "Escolha pelos uma categoria";
 	public void insertUser(User user)
 			throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException, UserAlreadyExistsException {
 		emptyUser(user);
@@ -27,8 +27,15 @@ public class UserBO {
 		userDAO.insertUser(user);
 	}
 	
-	public void inserTableUserCategory(User user, String categoryID) throws SQLException {
-		userDAO.insertTableUserCategory(user, categoryID);
+	public void inserTableUserCategory(User user, Category category, String[] categories) throws EmptyCategoriesException {
+		validate(categories);
+		userDAO.insertTableUserCategory(user, category);
+	}
+
+	private void validate(String[] categories) throws EmptyCategoriesException {
+		if (categories == null) {
+			throw new EmptyCategoriesException(EMPTY_CATEGORIES);
+		}
 	}
 
 	public void removeUser(User user)
@@ -37,10 +44,6 @@ public class UserBO {
 		nonExistentUser(user);
 		userDAO.removeUserCategory(user);
 		userDAO.removeUser(user);
-	}
-
-	public Map<Integer, String> mapCategory() {
-		return userDAO.mapCategory();
 	}
 	
 	public Map<Integer, Integer> mapCategoryId() {
