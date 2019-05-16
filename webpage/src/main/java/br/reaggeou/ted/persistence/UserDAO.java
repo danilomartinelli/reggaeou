@@ -49,6 +49,7 @@ public class UserDAO {
 		ps.setInt(1, user.getIdUser());
 		ps.setInt(2, Integer.parseInt(categoryID));
 		ps.execute();
+		ps.close();
 	}
 
 	public void removeUser(User user) {
