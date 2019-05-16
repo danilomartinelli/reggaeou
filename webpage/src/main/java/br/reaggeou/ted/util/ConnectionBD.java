@@ -35,7 +35,7 @@ public class ConnectionBD {
 		return connection;
 	}
 
-	public static ConnectionBD getConnectionWB() {
+	public static ConnectionBD getConnectionDB() {
 		if (connectionWB == null) {
 			connectionWB = new ConnectionBD();
 		}

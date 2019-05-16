@@ -20,7 +20,7 @@ public class EventDAO {
 	private static final String SQL_SELECT_EVENTS = "SELECT id_event​, title​, description​, href​, local​, ​date​​,​ time​, folder​, vendor​, id_category FROM EVENTS";
 
 	public EventDAO() {
-		this.connectionWB = ConnectionBD.getConnectionWB();
+		this.connectionWB = ConnectionBD.getConnectionDB();
 	}
 
 	public List<Event> filterEventsCategory(Category category) {

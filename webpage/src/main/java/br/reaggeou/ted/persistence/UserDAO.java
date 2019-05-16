@@ -14,7 +14,7 @@ import br.reaggeou.ted.util.ConnectionBD;
 
 public class UserDAO {
 
-	private ConnectionWithBank connectionWB;
+	private ConnectionBD connectionDB;
 
 	private static final String SQL_INSERT_USER = "INSERT INTO USERS (email, tel) values (?, ?);";
 	private static final String SQL_INSERT_USERCATEGORY = "INSERT INTO USER_CATEGORY (id_user, id_category) values (?, ?)";
@@ -27,12 +27,12 @@ public class UserDAO {
 	private static final String SQL_REMOVE_USERCATEGORY = "DELETE FROM USER_CATEGORY WHERE id_user=?";
 
 	public UserDAO() {
-		this.connectionWB = ConnectionBD.getConnectionWB();
+		this.connectionDB = ConnectionBD.getConnectionDB();
 	}
 
 	public void insertUser(User user) {
 		try {
-			PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_INSERT_USER);
+			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_INSERT_USER);
 			ps.setString(1, user.getEmail());
 			ps.setString(2, user.getTel());
 			ps.execute();
@@ -44,7 +44,7 @@ public class UserDAO {
 	}
 
 	public void insertTableUserCategory(User u, Category c) throws SQLException {
-		PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_INSERT_USERCATEGORY);
+		PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_INSERT_USERCATEGORY);
 		User user = userGetIdByEmail(u);
 		ps.setInt(1, user.getIdUser());
 		Category category = categoryGetIdByName(c);
@@ -54,7 +54,7 @@ public class UserDAO {
 
 	public void removeUser(User user) {
 		try {
-			PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_REMOVE_USER);
+			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_REMOVE_USER);
 			ps.setString(1, user.getEmail());
 			ps.execute();
 			ps.close();
@@ -65,7 +65,7 @@ public class UserDAO {
 
 	public void removeUserCategory(User user) {
 		try {
-			PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_REMOVE_USERCATEGORY);
+			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_REMOVE_USERCATEGORY);
 			ps.setInt(1, user.getIdUser());
 			ps.execute();
 			ps.close();
@@ -79,7 +79,7 @@ public class UserDAO {
 		List<User> users = new ArrayList<User>();
 
 		try {
-			PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_SELECT_USERS);
+			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_SELECT_USERS);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -113,7 +113,7 @@ public class UserDAO {
 		Map<Integer, String> mapCategory = new LinkedHashMap<Integer, String>();
 
 		try {
-			PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_SELECT_CATEGORY);
+			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_SELECT_CATEGORY);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -132,7 +132,7 @@ public class UserDAO {
 		Map<Integer, Integer> mapCategory = new LinkedHashMap<Integer, Integer>();
 
 		try {
-			PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_SELECT_CATEGORYID);
+			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_SELECT_CATEGORYID);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -149,7 +149,7 @@ public class UserDAO {
 
 	private User userGetIdByEmail(User user) throws SQLException {
 		User userCheck = null;
-		PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_SELECT_ID_USER);
+		PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_SELECT_ID_USER);
 		ps.setString(1, user.getEmail());
 		ResultSet rs = ps.executeQuery();
 
@@ -167,7 +167,7 @@ public class UserDAO {
 
 	private Category categoryGetIdByName(Category category) throws SQLException {
 		Category categoryCheck = null;
-		PreparedStatement ps = connectionWB.getConnection().prepareStatement(SQL_SELECT_ID_CATEGORY);
+		PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_SELECT_ID_CATEGORY);
 		ps.setString(1, category.getName());
 		ResultSet rs = ps.executeQuery();
 
