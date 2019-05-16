@@ -1,5 +1,5 @@
 package br.reaggeou.ted.model;
 
-public enum Event_info_vendor {
+public enum Vendor {
 	IBAHIA, SYMPLA;
 }

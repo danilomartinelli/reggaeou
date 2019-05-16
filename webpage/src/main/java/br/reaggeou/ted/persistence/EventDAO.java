@@ -8,17 +8,17 @@ import java.util.List;
 
 import br.reaggeou.ted.model.Category;
 import br.reaggeou.ted.model.Event;
-import br.reaggeou.ted.model.Event_info_vendor;
-import br.reaggeou.ted.util.ConnectionWithBank;
+import br.reaggeou.ted.model.Vendor;
+import br.reaggeou.ted.util.ConnectionBD;
 
 public class EventDAO {
 
-	private ConnectionWithBank connectionWB;
+	private ConnectionBD connectionWB;
 
 	private static final String SQL_SELECT_EVENTS = "SELECT id_event​, title​, description​, href​, local​, ​date​​,​ time​, folder​, vendor​, id_category FROM EVENTS";
 
 	public EventDAO() {
-		this.connectionWB = ConnectionWithBank.getConnectionWB();
+		this.connectionWB = ConnectionBD.getConnectionWB();
 	}
 
 	public List<Event> filterEventsCategory(Category category) {
@@ -63,7 +63,7 @@ public class EventDAO {
 			event.setLocal(rs.getString("local"));
 			event.setDate(rs.getDate("date").toLocalDate());
 			event.setTime(rs.getTime("time").toLocalTime());
-			event.setVendor(Event_info_vendor.valueOf(rs.getString("event_info_vendor")));
+			event.setVendor(Vendor.valueOf(rs.getString("event_info_vendor")));
 
 			Category category = new Category();
 			category.setIdCategory(rs.getInt("id_category"));

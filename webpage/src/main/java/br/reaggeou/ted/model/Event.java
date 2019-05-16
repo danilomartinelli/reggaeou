@@ -15,7 +15,7 @@ public class Event {
 	private String folder;
 	private Category category;
 
-	private Event_info_vendor vendor;
+	private Vendor vendor;
 
 	public Integer getIdEvent() {
 		return idEvent;
@@ -89,11 +89,11 @@ public class Event {
 		this.category = category;
 	}
 	
-	public Event_info_vendor getVendor() {
+	public Vendor getVendor() {
 		return vendor;
 	}
 
-	public void setVendor(Event_info_vendor vendor) {
+	public void setVendor(Vendor vendor) {
 		this.vendor = vendor;
 	}
 

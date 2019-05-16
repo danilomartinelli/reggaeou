@@ -10,11 +10,11 @@ import java.util.Map;
 
 import br.reaggeou.ted.model.Category;
 import br.reaggeou.ted.model.User;
-import br.reaggeou.ted.util.ConnectionWithBank;
+import br.reaggeou.ted.util.ConnectionBD;
 
 public class UserDAO {
 
-	private ConnectionWithBank connectionWB;
+	private ConnectionBD connectionWB;
 	
 	private static final String SQL_INSERT_USER = "INSERT INTO Users (email, tel) values (?, ?);";
 	private static final String SQL_INSERT_USERCATEGORY = "INSERT INTO User_Category (id_user, id_category) values (?, ?)";
@@ -25,7 +25,7 @@ public class UserDAO {
 	private static final String SQL_REMOVE_USER = "DELETE FROM USERS WHERE email=?";
 	
 	public UserDAO() {
-		this.connectionWB = ConnectionWithBank.getConnectionWB();
+		this.connectionWB = ConnectionBD.getConnectionWB();
 	}
 
 	public void insertUser(User user, Category category) {
