@@ -17,6 +17,8 @@ import br.reaggeou.ted.model.User;
 public class CancellationController extends HttpServlet {
 
 	private static final long serialVersionUID = 217927236822445704L;
+	private static final String SUCCSSFULLY_REMOVED = "O usuário foi removido com sucesso !";
+
 	private UserBO userBO = new UserBO();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,6 +41,7 @@ public class CancellationController extends HttpServlet {
 	private void removeUser(User user, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			userBO.removeUser(user);
+			request.setAttribute("SuccessfullyRemoved", SUCCSSFULLY_REMOVED);
 			response.sendRedirect("index.jsp");
 		} catch (EmptyUserException e) {
 			request.setAttribute("error", e.getMessage());

@@ -26,22 +26,18 @@ public class RegisterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 // Possível solução
 
-//		String[] categories = new String[5];
-//		Integer counter = 0;
-//		
-//		for (Map.Entry<Integer, String> entry : userBO.mapCategory().entrySet()) {
-//			categories[counter] = entry.getValue();
-//			counter++;
-//		}
-//		
-//		request.setAttribute("categories", categories);
-
-// Possível solução
-//		request.setAttribute("mapCategory", userBO.mapCategory());
-//		request.getRequestDispatcher("index.jsp").forward(request, response);
+		Integer[] categories = new Integer[5];
+		Integer counter = 0;
+		
+		for (Map.Entry<Integer, Integer> entry : userBO.mapCategoryId().entrySet()) {
+			categories[counter] = entry.getValue();
+			counter++;
+		}
+		
+		request.setAttribute("categories", categories);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -58,21 +54,17 @@ public class RegisterController extends HttpServlet {
 		request.getSession().setAttribute("user", user);
 		registerUser(request, response, user);
 		
-		
 		for(String category : categories) {
 			Category ctg = new Category();
 			ctg.setName(category);
+			
 			try {
-				registerUserCategory(request, response, user, ctg);
+				userBO.inserTableUserCategory(user, ctg);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-
-
 		response.sendRedirect("admin/successfully_registered.jsp");
-
 	}
 
 	private void registerUser(HttpServletRequest request, HttpServletResponse response, User user)
@@ -80,7 +72,6 @@ public class RegisterController extends HttpServlet {
 
 		try {
 			userBO.insertUser(user);
-			// response.sendRedirect("admin/successfully_registered.jsp");
 		} catch (EmptyUserException e) {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -96,14 +87,5 @@ public class RegisterController extends HttpServlet {
 		}
 
 	}
-	
-	private void registerUserCategory(HttpServletRequest request, HttpServletResponse response, User user, Category ctg)
-			throws IOException, ServletException, SQLException {
-
-			userBO.inserTableUserCategory(user, ctg);
-			// response.sendRedirect("admin/successfully_registered.jsp");
-
-	}
-
 
 }

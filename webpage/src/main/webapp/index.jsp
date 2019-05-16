@@ -60,40 +60,40 @@
 						<div class="categories">
 							<div class="categoryBox">
 								<div class="category">
-									<input type="checkbox" name="category" id="ctg1" value="1"> <label
-										for="ctg1"><i class="fas fa-graduation-cap"></i></label>
+									<input type="checkbox" name="category" id="ctg1" value="1">
+									<label for="ctg1"><i class="fas fa-graduation-cap"></i></label>
 								</div>
 								<p>Curso e Workshop</p>
 								<!--<c:out value="${categories[0]}" />-->
 							</div>
 							<div class="categoryBox">
 								<div class="category">
-									<input type="checkbox" name="category" id="ctg2" value="2"> <label
-										for="ctg2"><i class="fas fa-palette"></i></label>
+									<input type="checkbox" name="category" id="ctg2" value="2">
+									<label for="ctg2"><i class="fas fa-palette"></i></label>
 								</div>
 								<p>Arte e Cultura</p>
 								<!--<c:out value="${categories[1]}" />-->
 							</div>
 							<div class="categoryBox">
 								<div class="category">
-									<input type="checkbox" name="category" id="ctg3" value="3"> <label
-										for="ctg3"><i class="fas fa-guitar"></i></label>
+									<input type="checkbox" name="category" id="ctg3" value="3">
+									<label for="ctg3"><i class="fas fa-guitar"></i></label>
 								</div>
 								<p>Festa e Show</p>
 								<!--<c:out value="${categories[2]}" />-->
 							</div>
 							<div class="categoryBox">
 								<div class="category">
-									<input type="checkbox" name="category" id="ctg4" value="4"> <label
-										for="ctg4"><i class="fas fa-biohazard"></i></label>
+									<input type="checkbox" name="category" id="ctg4" value="4">
+									<label for="ctg4"><i class="fas fa-biohazard"></i></label>
 								</div>
 								<p>Ciência e Tecnologia</p>
 								<!--<c:out value="${categories[3]}" />-->
 							</div>
 							<div class="categoryBox">
 								<div class="category">
-									<input type="checkbox" name="category" id="ctg5" value="5"> <label
-										for="ctg5"><i class="fas fa-running"></i></label>
+									<input type="checkbox" name="category" id="ctg5" value="5">
+									<label for="ctg5"><i class="fas fa-running"></i></label>
 								</div>
 								<p>Esporte</p>
 								<!--<c:out value="${categories[4]}" />-->
@@ -113,10 +113,12 @@
 										name="tel" id="tel" placeholder="+55 (71) 91111-1111">
 									</label>
 								</div>
+							</div>
+							<div class="message">
+								<a href="./cancellation.html">Deseja cancelar o serviço ?</a>
 								<p class="message_error">
 									<c:out value="${error}" />
 								</p>
-								<a href="./cancellation">Deseja cancelar o serviço ?</a>
 							</div>
 							<button type="submit" name="register">Cadastrar</button>
 						</div>
