@@ -303,9 +303,12 @@
     margin-bottom: 5px;
 }
 
-.message_error {
-    text-align: center;
+.message {
     color: #ffffff;
+}
+
+.message_error {
+	text_align: center;
 }
 
 /* */
@@ -355,7 +358,11 @@
     .description_sucess {
         padding: 5px 10vmax;
     }
-
+	
+	.message {
+        font-size: 2.3vmax;
+    }
+	
 }
 
 @media screen and (min-width: 1000px) {
@@ -374,6 +381,10 @@
 
     .container_category p {
         font-size: 1.8vmax;
+    }
+
+	.message {
+        font-size: 1.3vmax;
     }
 
     .box {

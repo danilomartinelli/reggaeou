@@ -35,11 +35,16 @@ public class UserBO {
 			throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException, NonExistentUserException {
 		emptyUser(user);
 		nonExistentUser(user);
+		userDAO.removeUserCategory(user);
 		userDAO.removeUser(user);
 	}
 
 	public Map<Integer, String> mapCategory() {
 		return userDAO.mapCategory();
+	}
+	
+	public Map<Integer, Integer> mapCategoryId() {
+		return userDAO.mapCategoryId();
 	}
 
 	private void emptyUser(User user) throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException {
