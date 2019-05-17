@@ -53,6 +53,9 @@
 			<div class="container_register">
 				<form action="RegisterController" method="POST">
 					<div class="container_category">
+						<div style="font-size: 1.5vmax">
+							<c:out value="${SuccessfullyRemoved}" />
+						</div>
 						<div class="description_category">
 							<h2>Lorem ipsum dolor sit</h2>
 							<p>Nullam viverra, leo in pharetra consequat</p>
@@ -64,7 +67,6 @@
 									<label for="ctg1"><i class="fas fa-graduation-cap"></i></label>
 								</div>
 								<p>Cursos e Workshop</p>
-								<!--<c:out value="${categories[0]}" />-->
 							</div>
 							<div class="categoryBox">
 								<div class="category">
@@ -72,7 +74,6 @@
 									<label for="ctg2"><i class="fas fa-palette"></i></label>
 								</div>
 								<p>Arte e Cultura</p>
-								<!--<c:out value="${categories[1]}" />-->
 							</div>
 							<div class="categoryBox">
 								<div class="category">
@@ -80,7 +81,6 @@
 									<label for="ctg3"><i class="fas fa-guitar"></i></label>
 								</div>
 								<p>Festas e Shows</p>
-								<!--<c:out value="${categories[2]}" />-->
 							</div>
 							<div class="categoryBox">
 								<div class="category">
@@ -88,7 +88,6 @@
 									<label for="ctg4"><i class="fas fa-biohazard"></i></label>
 								</div>
 								<p>Ciência e Tecnologia</p>
-								<!--<c:out value="${categories[3]}" />-->
 							</div>
 							<div class="categoryBox">
 								<div class="category">
@@ -96,7 +95,6 @@
 									<label for="ctg5"><i class="fas fa-running"></i></label>
 								</div>
 								<p>Esportes</p>
-								<!--<c:out value="${categories[4]}" />-->
 							</div>
 						</div>
 						<div style="color: #151D40">

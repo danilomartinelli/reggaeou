@@ -43,16 +43,21 @@ public class UserBO {
 
 	public void changeUserStatus(User user, String reason)
 			throws EmptyUserException, EmptyUserEmailException, NonExistentUserException, EmptyReasonException {
-		emptyUser(user, reason, true);
-		nonExistentUser(user);
+		validate(user, reason);
 		userDAO.removeUserCategory(user);
-		userDAO.removeUser(user);
+		userDAO.changeUserStatus(user, reason);
+		userDAO.cancellationReasons(user, reason);
 	}
-
+	
 	public Map<Integer, Integer> mapCategoryId() {
 		return userDAO.mapCategoryId();
 	}
-
+	
+	private void validate(User user, String reason) throws EmptyUserException, EmptyUserEmailException, EmptyReasonException, NonExistentUserException {
+		emptyUser(user, reason, true);
+		nonExistentUser(user);
+	}
+	
 	private void emptyUser(User user) throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException {
 
 		if (emptyUserEmail(user) && emptyUserTel(user)) {
@@ -68,7 +73,7 @@ public class UserBO {
 	private void emptyUser(User user, String reason, Boolean notCheckTel) throws EmptyUserException, EmptyUserEmailException, EmptyReasonException {
 		if (emptyUserEmail(user)) {
 			throw new EmptyUserEmailException(EMPTY_USER_EMAIL);
-		} if (emptyReason(reason)) {
+		} else if (emptyReason(reason)) {
 			throw new EmptyReasonException(EMPTY_REASON);
 		}
 		

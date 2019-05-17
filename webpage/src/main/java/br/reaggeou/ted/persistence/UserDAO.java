@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.reaggeou.ted.model.Category;
+import br.reaggeou.ted.model.StatusUser;
 import br.reaggeou.ted.model.User;
 import br.reaggeou.ted.util.ConnectionBD;
 
@@ -22,9 +23,10 @@ public class UserDAO {
 	private static final String SQL_SELECT_NAME_CATEGORY = "SELECT name FROM CATEGORIES WHERE id_category=?";
 	private static final String SQL_SELECT_USERS = "SELECT id_user, email, tel FROM USERS";
 	private static final String SQL_SELECT_CATEGORYID = "SELECT id_category FROM CATEGORIES";
-	private static final String SQL_REMOVE_USER = "DELETE FROM USERS WHERE email=?";
+	private static final String SQL_CHANGE_STATUS_USER = "UPDATE USERS SET status=? WHERE id_user=?";
 	private static final String SQL_REMOVE_USERCATEGORY = "DELETE FROM USER_CATEGORY WHERE id_user=?";
-
+	private static final String SQL_INSERT_REASONS = "INSERT INTO CANCELLATION_REASONS (id_user, reason) values (?, ?)";
+	
 	public UserDAO() {
 		this.connectionDB = ConnectionBD.getConnectionDB();
 	}
@@ -57,12 +59,12 @@ public class UserDAO {
 		}
 	}
 
-	public void removeUser(User u) {
+	public void changeUserStatus(User u, String reason) {
 		try {
-			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_REMOVE_USER);
+			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_CHANGE_STATUS_USER);
 			User user = userGetIdByEmail(u);
-			ps.setInt(1, user.getIdUser());
-			ps.setString(1, user.getEmail());
+			ps.setString(1, StatusUser.CANCELED.toString());
+			ps.setInt(2, user.getIdUser());
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
@@ -70,10 +72,10 @@ public class UserDAO {
 		}
 	}
 
-	public void removeUserCategory(User user) {
+	public void removeUserCategory(User u) {
 		try {
 			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_REMOVE_USERCATEGORY);
-			
+			User user = userGetIdByEmail(u);
 			ps.setInt(1, user.getIdUser());
 			ps.execute();
 			ps.close();
@@ -81,7 +83,21 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void cancellationReasons(User u, String reason) {
+		try {
+			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_INSERT_REASONS);
+			User user = userGetIdByEmail(u);
+			ps.setInt(1, user.getIdUser());
+			ps.setString(2, reason);
+			ps.execute();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
+	}
+	
 	public List<User> listUser() {
 
 		List<User> users = new ArrayList<User>();
