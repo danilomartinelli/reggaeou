@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionBD {
 	
 	private Connection connection = null;
-	private static ConnectionBD connectionWB;
+	private static ConnectionBD connectionDB;
 	
 	private static final String CLASS_NAME = "org.postgresql.Driver";
 	private static final String URL = "jdbc:postgresql://localhost:5432/reggaeou";
@@ -36,10 +36,10 @@ public class ConnectionBD {
 	}
 
 	public static ConnectionBD getConnectionDB() {
-		if (connectionWB == null) {
-			connectionWB = new ConnectionBD();
+		if (connectionDB == null) {
+			connectionDB = new ConnectionBD();
 		}
-		return connectionWB;
+		return connectionDB;
 	}
 	
 	public void closeConnection () {

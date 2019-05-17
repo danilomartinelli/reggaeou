@@ -21,7 +21,6 @@ public class UserDAO {
 	private static final String SQL_SELECT_ID_USER = "SELECT id_user FROM USERS WHERE email=?";
 	private static final String SQL_SELECT_NAME_CATEGORY = "SELECT name FROM CATEGORIES WHERE id_category=?";
 	private static final String SQL_SELECT_USERS = "SELECT id_user, email, tel FROM USERS";
-	private static final String SQL_SELECT_CATEGORY = "SELECT id_category, name FROM CATEGORIES";
 	private static final String SQL_SELECT_CATEGORYID = "SELECT id_category FROM CATEGORIES";
 	private static final String SQL_REMOVE_USER = "DELETE FROM USERS WHERE email=?";
 	private static final String SQL_REMOVE_USERCATEGORY = "DELETE FROM USER_CATEGORY WHERE id_user=?";
@@ -43,18 +42,25 @@ public class UserDAO {
 		}
 	}
 
-	public void insertTableUserCategory(User u, String categoryID) throws SQLException {
-		PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_INSERT_USERCATEGORY);
-		User user = userGetIdByEmail(u);
-		ps.setInt(1, user.getIdUser());
-		ps.setInt(2, Integer.parseInt(categoryID));
-		ps.execute();
-		ps.close();
+	public void insertTableUserCategory(User u, Category category) {
+		PreparedStatement ps;
+		try {
+			ps = connectionDB.getConnection().prepareStatement(SQL_INSERT_USERCATEGORY);
+			User user = userGetIdByEmail(u);
+			ps.setInt(1, user.getIdUser());
+			ps.setInt(2, category.getIdCategory());
+			ps.execute();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void removeUser(User user) {
+	public void removeUser(User u) {
 		try {
 			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_REMOVE_USER);
+			User user = userGetIdByEmail(u);
+			ps.setInt(1, user.getIdUser());
 			ps.setString(1, user.getEmail());
 			ps.execute();
 			ps.close();
@@ -66,6 +72,7 @@ public class UserDAO {
 	public void removeUserCategory(User user) {
 		try {
 			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_REMOVE_USERCATEGORY);
+			
 			ps.setInt(1, user.getIdUser());
 			ps.execute();
 			ps.close();
@@ -107,25 +114,6 @@ public class UserDAO {
 			}
 		}
 		return exists;
-	}
-
-	public Map<Integer, String> mapCategory() {
-		Map<Integer, String> mapCategory = new LinkedHashMap<Integer, String>();
-
-		try {
-			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_SELECT_CATEGORY);
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-				mapCategory.put(rs.getInt("id_category"), rs.getString("name"));
-			}
-
-			ps.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return mapCategory;
 	}
 
 	public Map<Integer, Integer> mapCategoryId() {
