@@ -1,4 +1,5 @@
-CREATE TYPE event_info_vendor AS ENUM ('IBahia', 'Sympla');
+CREATE TYPE EVENT_SOURCE AS ENUM ('IBahia', 'Sympla');
+CREATE TYPE STATUS_USER AS ENUM ('Active', 'Canceled');
 
 CREATE TABLE Categories
 (
@@ -17,8 +18,10 @@ CREATE TABLE Events
 	time varchar(10) NOT NULL,
 	folder varchar(240) NOT NULL,
 
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
     id_category INT REFERENCES Categories(id_category),
-	vendor event_info_vendor NOT NULL
+	vendor EVENT_SOURCE NOT NULL
 );
 
 CREATE TABLE Prices
@@ -36,7 +39,16 @@ CREATE TABLE Users
 (
     id_user SERIAL PRIMARY KEY,
     email varchar(60) NOT NULL UNIQUE,
-    tel varchar(11) NOT NULL
+    tel varchar(11) NOT NULL,
+
+    status STATUS_USER NOT NULL
+);
+
+CREATE TABLE Cancellation_Reasons
+(
+    id_cancel_user SERIAL PRIMARY KEY,
+    id_user int REFERENCES Users(id_user),
+    reason text NOT NULL
 );
 
 CREATE TABLE User_Category
