@@ -1,0 +1,21 @@
+{
+  "name": "crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/app.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.457.0",
+    "pg": "^7.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^11.13.9",
+    "@types/pg": "^7.4.14",
+    "ts-node": "^8.1.0",
+    "typescript": "^3.4.5"
+  }
+}

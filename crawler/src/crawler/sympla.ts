@@ -12,7 +12,7 @@ async function app() {
 
   const childElementCount: number = await page.evaluate(sel => {
     return document.querySelector(sel).childElementCount;
-  }, "#events-grid");
+  }, "#events-grid > div > div > ul");
   const arrRange = range(childElementCount, 1);
 
   const data: IData[] = [];
@@ -24,43 +24,39 @@ async function app() {
           .querySelector(sel)
           .getAttribute("href")
           .trim();
-      }, `#events-grid > div:nth-child(${nth}) > a`);
+      }, `#events-grid > div > div > ul > li:nth-child(${nth}) > a`);
 
       const title: string = await page.evaluate(sel => {
         return document.querySelector(sel).innerText.trim();
-      }, `#events-grid > div:nth-child(${nth}) > a > div.event-name > p`);
+      }, `#events-grid > div > div > ul > li:nth-child(${nth}) > a > div.event-info-block.event-card-list-var.w-clearfix > div.event-name.event-card > span`);
 
       const time: string = await page.evaluate(sel => {
         return document
           .querySelector(sel)
           .innerText.trim()
           .split(" ")[0];
-      }, `#events-grid > div:nth-child(${nth}) > a > div.event-local-box > div:nth-child(2)`);
+      }, `#events-grid > div > div > ul > li:nth-child(${nth}) > a > div.event-info-block.event-card-list-var.w-clearfix > div.event-card-data-block > div > div > div.event-card-info`);
 
       const local: string = await page.evaluate(sel => {
-        return document
-          .querySelector(sel)
-          .innerText.trim()
-          .split("  ")[1];
-      }, `#events-grid > div:nth-child(${nth}) > a > div.event-local-box > div:nth-child(2)`);
+        return document.querySelector(sel).innerText.trim();
+      }, `#events-grid > div > div > ul > li:nth-child(${nth}) > a > div.event-info-block.event-card-list-var.w-clearfix > div.event-location.event-card`);
 
       const month: string = await page.evaluate(sel => {
         return document.querySelector(sel).innerText.trim();
-      }, `#events-grid > div:nth-child(${nth}) > a > div.calendar-box > div.calendar-month`);
+      }, `#events-grid > div > div > ul > li:nth-child(${nth}) > a > div.event-info-block.event-card-list-var.w-clearfix > div.event-card-data-block > div > div > div.event-card-day.w-clearfix > div.event-card-date-month`);
 
       const day: string = await page.evaluate(sel => {
         return document.querySelector(sel).innerText.trim();
-      }, `#events-grid > div:nth-child(${nth}) > a > div.calendar-box > div.calendar-day`);
+      }, `#events-grid > div > div > ul > li:nth-child(${nth}) > a > div.event-info-block.event-card-list-var.w-clearfix > div.event-card-data-block > div > div > div.event-card-day.w-clearfix > div.event-date-day`);
 
       const date = new Date();
 
       const folder: string = await page.evaluate(sel => {
-        return document
-          .querySelector(sel)
-          .getAttribute("style")
-          .replace("background-image:url('", "")
-          .replace("')", "");
-      }, `#events-grid > div:nth-child(${nth}) > a > div.event-image-box`);
+        return (
+          "https://www.sympla.com.br" +
+          document.querySelector(sel).getAttribute("src")
+        );
+      }, `#events-grid > div > div > ul > li:nth-child(${nth}) > a > div:nth-child(1) > div > img`);
 
       const vendor = Vendor.SYMPLA;
 

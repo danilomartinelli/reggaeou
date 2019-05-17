@@ -18,6 +18,8 @@ CREATE TABLE Events
 	time varchar(10) NOT NULL,
 	folder varchar(240) NOT NULL,
 
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
     id_category INT REFERENCES Categories(id_category),
 	vendor EVENT_SOURCE NOT NULL
 );
