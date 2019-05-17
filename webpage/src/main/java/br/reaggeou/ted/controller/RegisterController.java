@@ -17,6 +17,7 @@ import br.reaggeou.ted.exception.EmptyUserEmailException;
 import br.reaggeou.ted.exception.EmptyUserTelException;
 import br.reaggeou.ted.exception.UserAlreadyExistsException;
 import br.reaggeou.ted.model.Category;
+import br.reaggeou.ted.model.StatusUser;
 import br.reaggeou.ted.model.User;
 
 @WebServlet("/RegisterServlet")
@@ -27,16 +28,7 @@ public class RegisterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Integer[] categories = new Integer[5];
-		Integer counter = 0;
 		
-		for (Map.Entry<Integer, Integer> entry : userBO.mapCategoryId().entrySet()) {
-			categories[counter] = entry.getValue();
-			counter++;
-		}
-		
-		request.setAttribute("categories", categories);
-		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -49,6 +41,7 @@ public class RegisterController extends HttpServlet {
 		User user = new User();
 		user.setEmail(email);
 		user.setTel(tel);
+		user.setStatus(StatusUser.ACTIVED);
 		
 		request.getSession().setAttribute("user", user);
 		registerUser(request, response, user);

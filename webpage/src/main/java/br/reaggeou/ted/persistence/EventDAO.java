@@ -10,7 +10,7 @@ import java.util.Map;
 
 import br.reaggeou.ted.model.Category;
 import br.reaggeou.ted.model.Event;
-import br.reaggeou.ted.model.Vendor;
+import br.reaggeou.ted.model.EventSource;
 import br.reaggeou.ted.util.ConnectionBD;
 
 public class EventDAO {
@@ -65,7 +65,7 @@ public class EventDAO {
 			event.setLocal(rs.getString("local"));
 			event.setDate(rs.getDate("date").toLocalDate());
 			event.setTime(rs.getTime("time").toLocalTime());
-			event.setVendor(Vendor.valueOf(rs.getString("event_info_vendor")));
+			event.setSource(EventSource.valueOf(rs.getString("event_info_vendor")));
 
 			Category category = new Category();
 			category.setIdCategory(rs.getInt("id_category"));

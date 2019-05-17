@@ -14,8 +14,8 @@ public class Event {
 	private LocalTime time;
 	private String folder;
 	private Category category;
-
-	private Vendor vendor;
+	
+	private EventSource source;
 
 	public Integer getIdEvent() {
 		return idEvent;
@@ -89,12 +89,12 @@ public class Event {
 		this.category = category;
 	}
 	
-	public Vendor getVendor() {
-		return vendor;
+	public EventSource getSource() {
+		return source;
 	}
 
-	public void setVendor(Vendor vendor) {
-		this.vendor = vendor;
+	public void setSource(EventSource source) {
+		this.source = source;
 	}
 
 }

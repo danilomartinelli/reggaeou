@@ -9,15 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.reaggeou.ted.business.UserBO;
 import br.reaggeou.ted.exception.EmptyUserException;
+import br.reaggeou.ted.exception.EmptyReasonException;
 import br.reaggeou.ted.exception.EmptyUserEmailException;
 import br.reaggeou.ted.exception.EmptyUserTelException;
 import br.reaggeou.ted.exception.NonExistentUserException;
+import br.reaggeou.ted.model.StatusUser;
 import br.reaggeou.ted.model.User;
 
 public class CancellationController extends HttpServlet {
 
 	private static final long serialVersionUID = 217927236822445704L;
-	private static final String SUCCSSFULLY_REMOVED = "O usu·rio foi removido com sucesso !";
+	private static final String SUCCSSFULLY_REMOVED = "O usu√°rio foi removido com sucesso !";
 
 	private UserBO userBO = new UserBO();
 
@@ -27,20 +29,18 @@ public class CancellationController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
-		String tel = request.getParameter("tel");
 		
 		User user = new User();
 		user.setEmail(email);
-		user.setTel(tel);
+		user.setStatus(StatusUser.CANCELED);
+		String reason = request.getParameter("reason");
 		
-//		String reason = request.getParameter("reason");
-		
-		removeUser(user, request, response);
+		changeUserStatus(user, request, response, reason);
 	}
 
-	private void removeUser(User user, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void changeUserStatus(User user, HttpServletRequest request, HttpServletResponse response, String reason) throws ServletException, IOException {
 		try {
-			userBO.removeUser(user);
+			userBO.changeUserStatus(user, reason);
 			request.setAttribute("SuccessfullyRemoved", SUCCSSFULLY_REMOVED);
 			response.sendRedirect("index.jsp");
 		} catch (EmptyUserException e) {
@@ -49,10 +49,10 @@ public class CancellationController extends HttpServlet {
 		} catch (EmptyUserEmailException e) {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("cancellation.jsp").forward(request, response);
-		} catch (EmptyUserTelException e) {
+		} catch (NonExistentUserException e) {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("cancellation.jsp").forward(request, response);
-		} catch (NonExistentUserException e) {
+		} catch (EmptyReasonException e) {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("cancellation.jsp").forward(request, response);
 		} 

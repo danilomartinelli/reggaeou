@@ -5,6 +5,7 @@ public class User {
 	private Integer idUser;
 	private String email;
 	private String tel;
+	private StatusUser status;
 
 	public Integer getIdUser() {
 		return idUser;
@@ -30,4 +31,12 @@ public class User {
 		this.tel = tel;
 	}
 
+	public StatusUser getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusUser status) {
+		this.status = status;
+	}
+	
 }

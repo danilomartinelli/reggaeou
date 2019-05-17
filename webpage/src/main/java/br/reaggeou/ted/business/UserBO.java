@@ -3,6 +3,7 @@ package br.reaggeou.ted.business;
 import java.util.Map;
 
 import br.reaggeou.ted.exception.EmptyCategoriesException;
+import br.reaggeou.ted.exception.EmptyReasonException;
 import br.reaggeou.ted.exception.EmptyUserEmailException;
 import br.reaggeou.ted.exception.EmptyUserException;
 import br.reaggeou.ted.exception.EmptyUserTelException;
@@ -20,14 +21,16 @@ public class UserBO {
 	private static final String EMPTY_USER_EMAIL = "O campo email est� vazio";
 	private static final String EMPTY_USER_TEL = "O campo telefone est� vazio";
 	private static final String EMPTY_CATEGORIES = "Escolha pelos uma categoria";
+	private static final String EMPTY_REASON = "O campo motivo do cancelamento está vazio";
 	public void insertUser(User user)
 			throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException, UserAlreadyExistsException {
 		emptyUser(user);
 		validate(user);
 		userDAO.insertUser(user);
 	}
-	
-	public void inserTableUserCategory(User user, Category category, String[] categories) throws EmptyCategoriesException {
+
+	public void inserTableUserCategory(User user, Category category, String[] categories)
+			throws EmptyCategoriesException {
 		validate(categories);
 		userDAO.insertTableUserCategory(user, category);
 	}
@@ -38,14 +41,14 @@ public class UserBO {
 		}
 	}
 
-	public void removeUser(User user)
-			throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException, NonExistentUserException {
-		emptyUser(user);
+	public void changeUserStatus(User user, String reason)
+			throws EmptyUserException, EmptyUserEmailException, NonExistentUserException, EmptyReasonException {
+		emptyUser(user, reason, true);
 		nonExistentUser(user);
 		userDAO.removeUserCategory(user);
 		userDAO.removeUser(user);
 	}
-	
+
 	public Map<Integer, Integer> mapCategoryId() {
 		return userDAO.mapCategoryId();
 	}
@@ -54,14 +57,21 @@ public class UserBO {
 
 		if (emptyUserEmail(user) && emptyUserTel(user)) {
 			throw new EmptyUserException(EMPTY_USER);
-		} else {
-			if (emptyUserEmail(user)) {
-				throw new EmptyUserEmailException(EMPTY_USER_EMAIL);
-			} else if (emptyUserTel(user)) {
-				throw new EmptyUserTelException(EMPTY_USER_TEL);
-			}
+		} else if (emptyUserEmail(user)) {
+			throw new EmptyUserEmailException(EMPTY_USER_EMAIL);
+		} else if (emptyUserTel(user)) {
+			throw new EmptyUserTelException(EMPTY_USER_TEL);
 		}
-
+		
+	}
+	
+	private void emptyUser(User user, String reason, Boolean notCheckTel) throws EmptyUserException, EmptyUserEmailException, EmptyReasonException {
+		if (emptyUserEmail(user)) {
+			throw new EmptyUserEmailException(EMPTY_USER_EMAIL);
+		} if (emptyReason(reason)) {
+			throw new EmptyReasonException(EMPTY_REASON);
+		}
+		
 	}
 
 	private Boolean emptyUserEmail(User user) {
@@ -71,10 +81,15 @@ public class UserBO {
 	private Boolean emptyUserTel(User user) {
 		return user.getTel().trim().isEmpty();
 	}
+	
+	private Boolean emptyReason(String reason) {
+		return reason.trim().isEmpty();
+	}
 
+	
 	private void nonExistentUser(User user) throws NonExistentUserException {
 		if (!userDAO.validate(user)) {
-			throw new NonExistentUserException("Usu�rio n�o cadastrado");
+			throw new NonExistentUserException("Usuário não cadastrado");
 		}
 	}
 

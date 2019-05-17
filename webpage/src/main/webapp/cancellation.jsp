@@ -22,7 +22,7 @@
 	href="css/main.css" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/cancellation.css" />
-<link rel="shortcut icon" href="./public/img/fav_icon.png"
+<link rel="shortcut icon" href="img/fav_icon.png"
 	type="image/x-icon">
 <script src="main.js"></script>
 </head>
@@ -47,17 +47,11 @@
 				</div>
 			</div>
 			<div class="cancellation">
-				<form method="POST" action="CancellationControler">
+				<form method="POST" action="CancellationController">
 					<div class="cancellation_input">
 						<label> Email:<br>
 						<input type="email" name="email" id="email"
 							placeholder="example@example.com">
-						</label>
-					</div>
-					<div class="cancellation_input">
-						<label> Telefone:<br>
-						<input type="text" name="tel" id="tel"
-							placeholder="+55 (71) 91111-1111">
 						</label>
 					</div>
 					<div class="cancellation_input">
@@ -66,7 +60,7 @@
 							placeholder="Informe o motivo do cancelamento">
 						</label>
 					</div>
-					<p>
+					<p class="message">
 						<c:out value="${error}" />
 					</p>
 					<button type="submit" name="confirm_cancellation">Confirmar</button>

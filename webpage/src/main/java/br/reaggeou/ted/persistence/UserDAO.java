@@ -16,7 +16,7 @@ public class UserDAO {
 
 	private ConnectionBD connectionDB;
 
-	private static final String SQL_INSERT_USER = "INSERT INTO USERS (email, tel) values (?, ?);";
+	private static final String SQL_INSERT_USER = "INSERT INTO USERS (email, tel, status) values (?, ?, ?);";
 	private static final String SQL_INSERT_USERCATEGORY = "INSERT INTO USER_CATEGORY (id_user, id_category) values (?, ?)";
 	private static final String SQL_SELECT_ID_USER = "SELECT id_user FROM USERS WHERE email=?";
 	private static final String SQL_SELECT_NAME_CATEGORY = "SELECT name FROM CATEGORIES WHERE id_category=?";
@@ -34,6 +34,7 @@ public class UserDAO {
 			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_INSERT_USER);
 			ps.setString(1, user.getEmail());
 			ps.setString(2, user.getTel());
+			ps.setString(3, user.getStatus().toString());
 			ps.execute();
 
 			ps.close();

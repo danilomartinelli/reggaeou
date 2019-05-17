@@ -120,7 +120,7 @@
 								</div>
 							</div>
 							<div class="message">
-								<a href="./cancellation.html">Deseja cancelar o serviço ?</a>
+								<a href="./cancellation.jsp">Deseja cancelar o serviço ?</a>
 								<p class="message_error">
 									<c:out value="${error}" />
 								</p>

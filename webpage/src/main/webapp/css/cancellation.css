@@ -26,7 +26,7 @@
     text-align: left;
     width: 100%;
     height: 30%;
-    margin-top: 3vmax;    
+    margin-top: 2vmax;    
 }
 
 .description_cancellation h2 {
@@ -116,9 +116,15 @@
     .cancellation_input {
         font-size: 1.5vmax;
     }
-
+	
+	.cancellation {
+		margin-top: 40px;
+	}
+	
     .cancellation_input input {
         font-size: 1.5vmax;
     }
+    
+    
 
 }
