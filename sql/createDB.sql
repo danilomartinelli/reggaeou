@@ -44,7 +44,7 @@ CREATE TABLE Users
 
 CREATE TABLE Cancellation_Reasons
 (
-    id_cancel_user SERIA PRIMARY KEY,
+    id_cancel_user SERIAL PRIMARY KEY,
     id_user int REFERENCES Users(id_user),
     reason text NOT NULL
 );
