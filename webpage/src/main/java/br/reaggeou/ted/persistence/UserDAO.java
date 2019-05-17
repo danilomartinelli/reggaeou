@@ -59,11 +59,11 @@ public class UserDAO {
 		}
 	}
 
-	public void changeUserStatus(User u, String reason) {
+	public void changeUserStatus(User u) {
 		try {
 			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_CHANGE_STATUS_USER);
 			User user = userGetIdByEmail(u);
-			ps.setString(1, StatusUser.CANCELED.toString());
+			ps.setString(1, u.getStatus().toString());
 			ps.setInt(2, user.getIdUser());
 			ps.execute();
 			ps.close();

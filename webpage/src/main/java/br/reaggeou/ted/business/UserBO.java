@@ -45,7 +45,7 @@ public class UserBO {
 			throws EmptyUserException, EmptyUserEmailException, NonExistentUserException, EmptyReasonException {
 		validate(user, reason);
 		userDAO.removeUserCategory(user);
-		userDAO.changeUserStatus(user, reason);
+		userDAO.changeUserStatus(user);
 		userDAO.cancellationReasons(user, reason);
 	}
 	
