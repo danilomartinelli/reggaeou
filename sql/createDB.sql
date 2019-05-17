@@ -1,5 +1,5 @@
 CREATE TYPE EVENT_SOURCE AS ENUM ('IBahia', 'Sympla');
-CREATE TYPE STATUS_USER AS ENUM ('Active', 'Cancel');
+CREATE TYPE STATUS_USER AS ENUM ('Active', 'Canceled');
 
 CREATE TABLE Categories
 (
