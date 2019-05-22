@@ -17,13 +17,13 @@ public class UserDAO {
 
 	private ConnectionBD connectionDB;
 
-	private static final String SQL_INSERT_USER = "INSERT INTO USERS (email, tel, status) values (?, ?, ?);";
+	private static final String SQL_INSERT_USER = "INSERT INTO USERS (email, tel, status) values (?, ?, CAST(? AS status_user));";
 	private static final String SQL_INSERT_USERCATEGORY = "INSERT INTO USER_CATEGORY (id_user, id_category) values (?, ?)";
 	private static final String SQL_SELECT_ID_USER = "SELECT id_user FROM USERS WHERE email=?";
 	private static final String SQL_SELECT_NAME_CATEGORY = "SELECT name FROM CATEGORIES WHERE id_category=?";
 	private static final String SQL_SELECT_USERS = "SELECT id_user, email, tel FROM USERS";
 	private static final String SQL_SELECT_CATEGORYID = "SELECT id_category FROM CATEGORIES";
-	private static final String SQL_CHANGE_STATUS_USER = "UPDATE USERS SET status=? WHERE id_user=?";
+	private static final String SQL_CHANGE_STATUS_USER = "UPDATE USERS SET status=CAST(? AS status_user) WHERE id_user=?";
 	private static final String SQL_REMOVE_USERCATEGORY = "DELETE FROM USER_CATEGORY WHERE id_user=?";
 	private static final String SQL_INSERT_REASONS = "INSERT INTO CANCELLATION_REASONS (id_user, reason) values (?, ?)";
 	
@@ -32,11 +32,12 @@ public class UserDAO {
 	}
 
 	public void insertUser(User user) {
+		System.out.println(user.getStatus().name());
 		try {
 			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_INSERT_USER);
 			ps.setString(1, user.getEmail());
 			ps.setString(2, user.getTel());
-			ps.setString(3, user.getStatus().toString());
+			ps.setString(3, user.getStatus().name());
 			ps.execute();
 
 			ps.close();
