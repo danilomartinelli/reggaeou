@@ -41,7 +41,7 @@ public class RegisterController extends HttpServlet {
 		User user = new User();
 		user.setEmail(email);
 		user.setTel(tel);
-		user.setStatus(StatusUser.Active);
+		user.setStatus(StatusUser.ACTIVE);
 		
 		request.getSession().setAttribute("user", user);
 		registerUser(request, response, user);

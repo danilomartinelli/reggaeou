@@ -32,7 +32,7 @@ public class CancellationController extends HttpServlet {
 		
 		User user = new User();
 		user.setEmail(email);
-		user.setStatus(StatusUser.Canceled);
+		user.setStatus(StatusUser.CANCELED);
 		String reason = request.getParameter("reason");
 		
 		changeUserStatus(user, request, response, reason);

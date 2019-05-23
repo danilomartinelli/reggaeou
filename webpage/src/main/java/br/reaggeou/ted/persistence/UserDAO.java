@@ -26,7 +26,7 @@ public class UserDAO {
 	private static final String SQL_CHANGE_STATUS_USER = "UPDATE USERS SET status=CAST(? AS status_user) WHERE id_user=?";
 	private static final String SQL_REMOVE_USERCATEGORY = "DELETE FROM USER_CATEGORY WHERE id_user=?";
 	private static final String SQL_INSERT_REASONS = "INSERT INTO CANCELLATION_REASONS (id_user, reason) values (?, ?)";
-	
+
 	public UserDAO() {
 		this.connectionDB = ConnectionBD.getConnectionDB();
 	}
@@ -84,7 +84,7 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void cancellationReasons(User u, String reason) {
 		try {
 			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_INSERT_REASONS);
@@ -98,7 +98,7 @@ public class UserDAO {
 		}
 
 	}
-	
+
 	public List<User> listUser() {
 
 		List<User> users = new ArrayList<User>();
@@ -151,6 +151,31 @@ public class UserDAO {
 		}
 
 		return mapCategory;
+	}
+
+	public List<User> statusUserActive() {
+		List<User> userStatus = new ArrayList();
+		try {
+			PreparedStatement ps = connectionDB.getConnection()
+					.prepareStatement("SELECT id_user, email, tel, status FROM USERS WHERE status=?");
+			ps.setString(1, StatusUser.ACTIVE.toString());
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				User user = new User();
+				user.setIdUser(rs.getInt("id_user"));
+				user.setEmail(rs.getString("email"));
+				user.setTel(rs.getString("tel"));
+				user.setStatus(StatusUser.valueOf(rs.getString("status")));
+
+				userStatus.add(user);
+			}
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return userStatus;
 	}
 
 	private User userGetIdByEmail(User user) throws SQLException {
