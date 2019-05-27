@@ -8,10 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.reaggeou.ted.business.UserBO;
-import br.reaggeou.ted.exception.EmptyUserException;
 import br.reaggeou.ted.exception.EmptyReasonException;
 import br.reaggeou.ted.exception.EmptyUserEmailException;
-import br.reaggeou.ted.exception.EmptyUserTelException;
+import br.reaggeou.ted.exception.EmptyUserException;
 import br.reaggeou.ted.exception.NonExistentUserException;
 import br.reaggeou.ted.model.StatusUser;
 import br.reaggeou.ted.model.User;
