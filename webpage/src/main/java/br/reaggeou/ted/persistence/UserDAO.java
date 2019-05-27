@@ -159,7 +159,7 @@ public class UserDAO {
 		try {
 			PreparedStatement ps = connectionDB.getConnection()
 					.prepareStatement("SELECT id_user, email, tel, status FROM USERS WHERE status=?");
-			ps.setString(1, StatusUser.Active.name());
+			ps.setString(1, StatusUser.ACTIVE.name());
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
