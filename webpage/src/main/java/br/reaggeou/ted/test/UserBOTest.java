@@ -9,7 +9,6 @@ public class UserBOTest {
 	
 	private static final String BEFORE = "Iniciado o teste";
 	private static final String AFTER = "Teste finalizado";
-	private UserBO userBO = new UserBO();
 	
 	
 	@Before

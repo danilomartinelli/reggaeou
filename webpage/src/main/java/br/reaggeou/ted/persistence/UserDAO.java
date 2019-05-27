@@ -62,9 +62,10 @@ public class UserDAO {
 
 	public void changeUserStatus(User u) {
 		try {
+			System.out.println(u.getStatus().name());
 			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_CHANGE_STATUS_USER);
 			User user = userGetIdByEmail(u);
-			ps.setString(1, u.getStatus().toString());
+			ps.setString(1, u.getStatus().name());
 			ps.setInt(2, user.getIdUser());
 			ps.execute();
 			ps.close();
@@ -153,12 +154,12 @@ public class UserDAO {
 		return mapCategory;
 	}
 
-	public List<User> statusUserActive() {
-		List<User> userStatus = new ArrayList();
+	public List<User> getActiveUsers() {
+		List<User> activeUsers = new ArrayList<>();
 		try {
 			PreparedStatement ps = connectionDB.getConnection()
 					.prepareStatement("SELECT id_user, email, tel, status FROM USERS WHERE status=?");
-			ps.setString(1, StatusUser.ACTIVE.toString());
+			ps.setString(1, StatusUser.Active.name());
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -168,14 +169,14 @@ public class UserDAO {
 				user.setTel(rs.getString("tel"));
 				user.setStatus(StatusUser.valueOf(rs.getString("status")));
 
-				userStatus.add(user);
+				activeUsers.add(user);
 			}
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return userStatus;
+		return activeUsers;
 	}
 
 	private User userGetIdByEmail(User user) throws SQLException {

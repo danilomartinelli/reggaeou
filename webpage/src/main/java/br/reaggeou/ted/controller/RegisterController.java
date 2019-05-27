@@ -1,8 +1,6 @@
 package br.reaggeou.ted.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.reaggeou.ted.business.UserBO;
-import br.reaggeou.ted.exception.EmptyUserException;
 import br.reaggeou.ted.exception.EmptyCategoriesException;
 import br.reaggeou.ted.exception.EmptyUserEmailException;
+import br.reaggeou.ted.exception.EmptyUserException;
 import br.reaggeou.ted.exception.EmptyUserTelException;
 import br.reaggeou.ted.exception.UserAlreadyExistsException;
 import br.reaggeou.ted.model.Category;
@@ -41,7 +39,7 @@ public class RegisterController extends HttpServlet {
 		User user = new User();
 		user.setEmail(email);
 		user.setTel(tel);
-		user.setStatus(StatusUser.ACTIVE);
+		user.setStatus(StatusUser.Active);
 		
 		request.getSession().setAttribute("user", user);
 		registerUser(request, response, user);

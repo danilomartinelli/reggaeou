@@ -50,7 +50,7 @@ public class UserBO {
 
 	private Boolean checkStatusUser(User user) {
 		Boolean check = false;
-		for (User u : userDAO.statusUserActive()) {
+		for (User u : userDAO.getActiveUsers()) {
 			if (user.getEmail().equalsIgnoreCase(u.getEmail())) {
 				check = true;
 			}
