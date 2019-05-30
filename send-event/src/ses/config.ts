@@ -1,4 +1,4 @@
-import AWS from "aws-sdk";
+import * as AWS from "aws-sdk";
 
 export async function sendEmail(to: string[], subject: string, data: string) {
   AWS.config.update({ region: "us-west-2" });
@@ -19,7 +19,7 @@ export async function sendEmail(to: string[], subject: string, data: string) {
         Data: subject
       }
     },
-    Source: "SENDER_EMAIL_ADDRESS"
+    Source: "hi@reggaeou.com.br"
   };
 
   const sendData = await new AWS.SES({ apiVersion: "2010-12-01" })
