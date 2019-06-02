@@ -26,7 +26,7 @@ public class RegisterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,28 +40,18 @@ public class RegisterController extends HttpServlet {
 		user.setEmail(email);
 		user.setTel(tel);
 		user.setStatus(StatusUser.ACTIVE);
-		
+
 		request.getSession().setAttribute("user", user);
-		registerUser(request, response, user);
-		
-		for(String categoryID : categories) {
-			try {
-				Category category = new Category();
-				category.setIdCategory(Integer.parseInt(categoryID));	
-				userBO.inserTableUserCategory(user, category, categories);
-			} catch (EmptyCategoriesException e) {
-				request.setAttribute("error", e.getMessage());
-				request.getRequestDispatcher("index.jsp").forward(request, response);
-			}
-		}
-		response.sendRedirect("admin/successfully_registered.jsp");
+		registerUser(request, response, user, categories);
 	}
 
-	private void registerUser(HttpServletRequest request, HttpServletResponse response, User user)
+	private void registerUser(HttpServletRequest request, HttpServletResponse response, User user, String[] categories)
 			throws IOException, ServletException {
 
 		try {
 			userBO.insertUser(user);
+			insertCategories(request, response, user, categories);
+			response.sendRedirect("admin/successfully_registered.jsp");
 		} catch (EmptyUserException e) {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -76,6 +66,20 @@ public class RegisterController extends HttpServlet {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 
+	}
+
+	private void insertCategories(HttpServletRequest request, HttpServletResponse response, User user,
+			String[] categories) throws ServletException, IOException {
+		for (String categoryID : categories) {
+			try {
+				Category category = new Category();
+				category.setIdCategory(Integer.parseInt(categoryID));
+				userBO.inserTableUserCategory(user, category, categories);
+			} catch (EmptyCategoriesException e) {
+				request.setAttribute("error", e.getMessage());
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+			}
+		}
 	}
 
 }
