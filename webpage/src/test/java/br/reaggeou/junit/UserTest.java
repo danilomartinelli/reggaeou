@@ -1,4 +1,4 @@
-package br.reaggeou.app;
+package br.reaggeou.junit;
 
 import org.junit.Assert;
 import org.junit.Before;

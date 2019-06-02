@@ -15,16 +15,17 @@ import br.reaggeou.ted.persistence.UserDAO;
 
 public class UserBO {
 
-	private UserDAO userDAO = new UserDAO();
-	private static final String MESSAGE_ERROR_USER_EXIST = "Este usu�rio j� est� cadastrado";
-	private static final String EMPTY_USER = "Os campos est�o vazio";
-	private static final String EMPTY_USER_EMAIL = "O campo email est� vazio";
-	private static final String EMPTY_USER_TEL = "O campo telefone est� vazio";
-	private static final String EMPTY_CATEGORIES = "Escolha pelos uma categoria";
-	private static final String EMPTY_REASON = "O campo motivo do cancelamento está vazio";
+	private UserDAO userDAO;
+	private static final String MESSAGE_ERROR_USER_EXIST = "Este usuário já está cadastrado";
+	private static final String EMPTY_USER = "Os campos estão vazios";
+	private static final String EMPTY_USER_EMAIL = "O campo email está vazio";
+	private static final String EMPTY_USER_TEL = "O campo telefone está vazio";
+	private static final String EMPTY_CATEGORIES = "Escolha pelo menos uma categoria";
+	private static final String EMPTY_REASON = "O campo 'motivo do cancelamento' está vazio";
 	
 	public UserBO() {
 		super();
+		this.userDAO = new UserDAO();
 	}
 	
 	public UserBO(UserDAO userDAO) {
