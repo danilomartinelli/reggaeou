@@ -22,6 +22,15 @@ public class UserBO {
 	private static final String EMPTY_USER_TEL = "O campo telefone est� vazio";
 	private static final String EMPTY_CATEGORIES = "Escolha pelos uma categoria";
 	private static final String EMPTY_REASON = "O campo motivo do cancelamento está vazio";
+	
+	public UserBO() {
+		super();
+	}
+	
+	public UserBO(UserDAO userDAO) {
+		super();
+		this.userDAO = userDAO;
+	}
 
 	public void insertUser(User user)
 			throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException, UserAlreadyExistsException {
@@ -58,7 +67,7 @@ public class UserBO {
 		return check;
 	}
 
-	private void nonExistentUser(User user) throws NonExistentUserException {
+	public void nonExistentUser(User user) throws NonExistentUserException {
 		if (!userDAO.validate(user)) {
 			throw new NonExistentUserException("Usuário não cadastrado");
 		}
@@ -82,7 +91,7 @@ public class UserBO {
 		}
 	}
 
-	private void emptyUser(User user) throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException {
+	public void emptyUser(User user) throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException {
 
 		if (emptyUserEmail(user) && emptyUserTel(user)) {
 			throw new EmptyUserException(EMPTY_USER);
@@ -94,7 +103,7 @@ public class UserBO {
 
 	}
 
-	private void emptyUser(User user, String reason, Boolean notCheckTel)
+	public void emptyUser(User user, String reason, Boolean notCheckTel)
 			throws EmptyUserException, EmptyUserEmailException, EmptyReasonException {
 		if (emptyUserEmail(user)) {
 			throw new EmptyUserEmailException(EMPTY_USER_EMAIL);
@@ -104,15 +113,15 @@ public class UserBO {
 
 	}
 
-	private Boolean emptyUserEmail(User user) {
+	public Boolean emptyUserEmail(User user) {
 		return user.getEmail().trim().isEmpty();
 	}
 
-	private Boolean emptyUserTel(User user) {
+	public Boolean emptyUserTel(User user) {
 		return user.getTel().trim().isEmpty();
 	}
 
-	private Boolean emptyReason(String reason) {
+	public Boolean emptyReason(String reason) {
 		return reason.trim().isEmpty();
 	}
 
