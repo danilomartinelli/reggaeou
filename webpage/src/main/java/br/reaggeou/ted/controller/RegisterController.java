@@ -26,7 +26,7 @@ public class RegisterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +40,7 @@ public class RegisterController extends HttpServlet {
 		user.setEmail(email);
 		user.setTel(tel);
 		user.setStatus(StatusUser.ACTIVE);
-		
+
 		request.getSession().setAttribute("user", user);
 		registerUser(request, response, user, categories);
 	}
