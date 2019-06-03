@@ -17,6 +17,7 @@ import br.reaggeou.ted.exception.UserAlreadyExistsException;
 import br.reaggeou.ted.model.Category;
 import br.reaggeou.ted.model.StatusUser;
 import br.reaggeou.ted.model.User;
+import br.reaggeou.ted.persistence.EventDAO;
 
 @WebServlet("/RegisterServlet")
 public class RegisterController extends HttpServlet {
@@ -80,6 +81,8 @@ public class RegisterController extends HttpServlet {
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
 		}
+		EventDAO eventDAO = new EventDAO();
+		eventDAO.sendEmail(user, categories);
 	}
 
 }
