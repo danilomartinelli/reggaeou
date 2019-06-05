@@ -82,7 +82,7 @@ public class UserBO {
 	}
 
 	private void validate(User user) throws UserAlreadyExistsException {
-		if (userDAO.validate(user) && !checkStatusUser(user)) {
+		if (userDAO.validate(user) && checkStatusUser(user)) {
 			throw new UserAlreadyExistsException(MESSAGE_ERROR_USER_EXIST);
 		}
 	}
