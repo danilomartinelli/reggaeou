@@ -10,6 +10,7 @@ import br.reaggeou.ted.exception.EmptyUserTelException;
 import br.reaggeou.ted.exception.NonExistentUserException;
 import br.reaggeou.ted.exception.UserAlreadyExistsException;
 import br.reaggeou.ted.model.Category;
+import br.reaggeou.ted.model.StatusUser;
 import br.reaggeou.ted.model.User;
 import br.reaggeou.ted.persistence.EventDAO;
 import br.reaggeou.ted.persistence.UserDAO;
@@ -23,12 +24,12 @@ public class UserBO {
 	private static final String EMPTY_USER_TEL = "O campo telefone está vazio";
 	private static final String EMPTY_CATEGORIES = "Escolha pelo menos uma categoria";
 	private static final String EMPTY_REASON = "O campo 'motivo do cancelamento' está vazio";
-	
+
 	public UserBO() {
 		super();
 		this.userDAO = new UserDAO();
 	}
-	
+
 	public UserBO(UserDAO userDAO) {
 		super();
 		this.userDAO = userDAO;
@@ -36,14 +37,15 @@ public class UserBO {
 
 	public void insertUser(User user)
 			throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException, UserAlreadyExistsException {
-		emptyUser(user);
-		validate(user);
-		userDAO.insertUser(user);
+		if (userDAO.validate(user) && userDAO.statusUser(user).getStatus().equals(StatusUser.CANCELED)) {
+			userDAO.updateUser(user);
+		} else {			
+			validate(user);
+			userDAO.insertUser(user);
+		}
 	}
 
-	public void inserTableUserCategory(User user, Category category, String[] categories)
-			throws EmptyCategoriesException {
-		validate(categories);
+	public void inserTableUserCategory(User user, Category category, String[] categories) {
 		userDAO.insertTableUserCategory(user, category);
 	}
 
@@ -57,6 +59,12 @@ public class UserBO {
 
 	public Map<Integer, Integer> mapCategoryId() {
 		return userDAO.mapCategoryId();
+	}
+
+	public void validateEmpty(User user, String[] categories)
+			throws EmptyUserException, EmptyUserEmailException, EmptyUserTelException, EmptyCategoriesException {
+		emptyUser(user);
+		validate(categories);
 	}
 
 	private Boolean checkStatusUser(User user) {
@@ -82,7 +90,7 @@ public class UserBO {
 	}
 
 	private void validate(User user) throws UserAlreadyExistsException {
-		if (userDAO.validate(user) && checkStatusUser(user)) {
+		if (userDAO.validate(user) && user.getStatus().equals(StatusUser.ACTIVE)) {
 			throw new UserAlreadyExistsException(MESSAGE_ERROR_USER_EXIST);
 		}
 	}

@@ -113,7 +113,7 @@
 								</div>
 								<div class="register_input">
 									<label> Telefone:<br> <input type="text"
-										name="tel" id="tel" placeholder="+55 (71) 91111-1111">
+										name="tel" id="tel" placeholder="(71) 91111-1111">
 									</label>
 								</div>
 							</div>

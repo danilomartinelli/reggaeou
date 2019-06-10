@@ -10,9 +10,9 @@ public class ConnectionBD {
 	private static ConnectionBD connectionDB;
 	
 	private static final String CLASS_NAME = "org.postgresql.Driver";
-	private static final String URL = "jdbc:postgresql://localhost:5432/reggaeou";
-	private static final String USERNAME = "daniloleonemartinelli";
-	private static final String PASSWORD = "";
+	private static final String URL = "jdbc:postgresql://localhost:5432/reggeaou";
+	private static final String USERNAME = "postgres";
+	private static final String PASSWORD = "postgresql";
 	
 	private ConnectionBD () {
 		try {

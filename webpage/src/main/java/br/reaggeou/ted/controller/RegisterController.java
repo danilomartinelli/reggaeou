@@ -50,21 +50,25 @@ public class RegisterController extends HttpServlet {
 			throws IOException, ServletException {
 
 		try {
-			userBO.insertUser(user);
-			insertCategories(request, response, user, categories);
+				userBO.validateEmpty(user, categories);
+				userBO.insertUser(user);
+				insertCategories(request, response, user, categories);
 			response.sendRedirect("admin/successfully_registered.jsp");
 		} catch (EmptyUserException e) {
-			request.setAttribute("error", e.getMessage());
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("index.jsp");
 		} catch (EmptyUserEmailException e) {
-			request.setAttribute("error", e.getMessage());
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("index.jsp");
 		} catch (EmptyUserTelException e) {
-			request.setAttribute("error", e.getMessage());
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("index.jsp");
 		} catch (UserAlreadyExistsException e) {
-			request.setAttribute("error", e.getMessage());
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("index.jsp");
+		} catch (EmptyCategoriesException e) {
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("index.jsp");
 		}
 
 	}
@@ -72,17 +76,12 @@ public class RegisterController extends HttpServlet {
 	private void insertCategories(HttpServletRequest request, HttpServletResponse response, User user,
 			String[] categories) throws ServletException, IOException {
 		for (String categoryID : categories) {
-			try {
 				Category category = new Category();
 				category.setIdCategory(Integer.parseInt(categoryID));
 				userBO.inserTableUserCategory(user, category, categories);
-			} catch (EmptyCategoriesException e) {
-				request.setAttribute("error", e.getMessage());
-				request.getRequestDispatcher("index.jsp").forward(request, response);
-			}
 		}
-		EventDAO eventDAO = new EventDAO();
-		eventDAO.sendEmail(user, categories);
+//		EventDAO eventDAO = new EventDAO();
+//		eventDAO.sendEmail(user, categories);
 	}
 
 }

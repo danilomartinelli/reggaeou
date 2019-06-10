@@ -26,13 +26,14 @@ public class UserDAO {
 	private static final String SQL_CHANGE_STATUS_USER = "UPDATE USERS SET status=CAST(? AS status_user) WHERE id_user=?";
 	private static final String SQL_REMOVE_USERCATEGORY = "DELETE FROM USER_CATEGORY WHERE id_user=?";
 	private static final String SQL_INSERT_REASONS = "INSERT INTO CANCELLATION_REASONS (id_user, reason) values (?, ?)";
-
+	private static final String SQL_UPDATE_STATUS_USER = "UPDATE USERS SET email=?, tel=?, status=CAST(? AS status_user) WHERE id_user=?";
+	private static final String SQL_SELECT_STATUS_USER = "SELECT status FROM USERS WHERE id_user=?";
+	
 	public UserDAO() {
 		this.connectionDB = ConnectionBD.getConnectionDB();
 	}
 
 	public void insertUser(User user) {
-		System.out.println(user.getStatus().name());
 		try {
 			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_INSERT_USER);
 			ps.setString(1, user.getEmail());
@@ -45,11 +46,48 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
-
-	public void insertTableUserCategory(User u, Category category) {
-		PreparedStatement ps;
+	
+	public void updateUser(User user) {
 		try {
-			ps = connectionDB.getConnection().prepareStatement(SQL_INSERT_USERCATEGORY);
+			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_UPDATE_STATUS_USER);
+			ps.setString(1, user.getEmail());
+			ps.setString(2, user.getTel());
+			ps.setString(3, StatusUser.ACTIVE.name());
+			ps.setInt(4, user.getIdUser());
+			
+			ps.execute();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public User statusUser(User u) {
+		try {
+			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_SELECT_STATUS_USER);
+			User user = userGetIdByEmail(u);
+			u.setIdUser(user.getIdUser());
+			ps.setInt(1, u.getIdUser());
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				u.setIdUser(user.getIdUser());
+				u.setStatus(StatusUser.valueOf(rs.getString("status")));
+				return u; 
+			}
+			
+			ps.execute();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return u;
+	}
+	
+	public void insertTableUserCategory(User u, Category category) {
+		try {
+			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_INSERT_USERCATEGORY);
 			User user = userGetIdByEmail(u);
 			ps.setInt(1, user.getIdUser());
 			ps.setInt(2, category.getIdCategory());
@@ -62,7 +100,6 @@ public class UserDAO {
 
 	public void changeUserStatus(User u) {
 		try {
-			System.out.println(u.getStatus().name());
 			PreparedStatement ps = connectionDB.getConnection().prepareStatement(SQL_CHANGE_STATUS_USER);
 			User user = userGetIdByEmail(u);
 			ps.setString(1, u.getStatus().name());
@@ -158,8 +195,7 @@ public class UserDAO {
 		List<User> activeUsers = new ArrayList<>();
 		try {
 			PreparedStatement ps = connectionDB.getConnection()
-					.prepareStatement("SELECT id_user, email, tel, status FROM USERS WHERE status=?");
-			ps.setString(1, StatusUser.ACTIVE.name());
+					.prepareStatement("SELECT id_user, email, tel, status FROM USERS WHERE status=ACTIVE");
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
