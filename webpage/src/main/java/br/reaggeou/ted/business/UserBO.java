@@ -12,7 +12,6 @@ import br.reaggeou.ted.exception.UserAlreadyExistsException;
 import br.reaggeou.ted.model.Category;
 import br.reaggeou.ted.model.StatusUser;
 import br.reaggeou.ted.model.User;
-import br.reaggeou.ted.persistence.EventDAO;
 import br.reaggeou.ted.persistence.UserDAO;
 
 public class UserBO {

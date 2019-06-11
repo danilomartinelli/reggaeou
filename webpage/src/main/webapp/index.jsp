@@ -41,11 +41,9 @@
 			<div class="description">
 				<!-- Descrição do serviço da aplicação -->
 				<h2>Lorem Ipsum</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-					Praesent vel aliquet libero, eu fermentum est. Aenean ex enim,
-					tincidunt at magna eget, pharetra venenatis nibh. Aenean sit amet
-					lectus sagittis, laoreet dolor id, aliquet justo. Phasellus sed
-					molestie lacus. Proin nec magna vel tellus lobortis pellentesque.</p>
+				<p>O Reggaeou! é um serviço de newsletter no qual o usuário
+					recebe via email ou whatsapp todos os eventos que ocorrerão em
+					Salvador de acordo com as categorias da sua preferência.</p>
 			</div>
 			<!-- <img src="./public/img/banner_01.png" alt=""> -->
 		</div>
@@ -57,8 +55,8 @@
 							<c:out value="${SuccessfullyRemoved}" />
 						</div>
 						<div class="description_category">
-							<h2>Lorem ipsum dolor sit</h2>
-							<p>Nullam viverra, leo in pharetra consequat</p>
+							<h2>Categorias</h2>
+							<p>Escolha as categorias dos eventos que deseja receber</p>
 						</div>
 						<div class="categories">
 							<div class="categoryBox">

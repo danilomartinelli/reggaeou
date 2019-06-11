@@ -33,12 +33,9 @@
 		<div class="container_description_sucess">
 			<div class="description_sucess">
 				<!-- Cadastrado com sucesso... -->
-				<h2>Lorem Ipsum</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-					Praesent vel aliquet libero, eu fermentum est. Aenean ex enim,
-					tincidunt at magna eget, pharetra venenatis nibh. Aenean sit amet
-					lectus sagittis, laoreet dolor id, aliquet justo. Phasellus sed
-					molestie lacus. Proin nec magna vel tellus lobortis pellentesque.</p>
+				<h2>Cadastro efetuado com Sucesso</h2>
+				<p>O cadastro foi efetuado com sucesso, aproveite o serviço
+				e uma ótima experiência.</p>
 			</div>
 		</div>
 	</div>

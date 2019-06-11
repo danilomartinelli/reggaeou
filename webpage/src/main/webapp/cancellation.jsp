@@ -39,11 +39,10 @@
 		<div class="container_description_cancellation">
 			<div class="description_cancellation">
 				<div class="container_title">
-					<h2>Lorem Ipsum dolor sit</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Praesent vel aliquet libero, eu fermentum est. Aenean ex enim,
-						tincidunt at magna eget, pharetra venenatis nibh. Aenean sit amet
-						lectus sagittis.</p>
+					<h2>Cancelamento do Reggaeou</h2>
+					<p>Obrigado por contratar nossos serviços, sentimos
+					muito caso não tenha tido uma boa experiência. Por favor
+					deixe a razão do cancelamento.</p>
 				</div>
 			</div>
 			<div class="cancellation">
